@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import Spotify from 'spotify-web-api-js';
 
+// Component imports
+import LoginButton from './components/LoginButton';
+import NowPlaying from './components/NowPlaying';
+
 const spotifyWebApi = new Spotify();
 
 class App extends Component {
@@ -12,6 +16,7 @@ class App extends Component {
       loggedIn: params.access_token ? true : false,
       nowPlaying: {
         name: 'Not Checked',
+        alt: '',
         image: '',
       }
     }
@@ -33,32 +38,34 @@ class App extends Component {
   getNowPlaying() {
     spotifyWebApi.getMyCurrentPlaybackState()
       .then((response) => {
-        console.log('getMyCurrentPlaybackState response', response);
+
+        // console.log('getMyCurrentPlaybackState response', response);
         this.setState({
           nowPlaying: {
-            name: response.item.name,
-            image: response.item.album.images[0].url,
+              name: response.item.name,
+              alt: response.item.name,
+              image: response.item.album.images[0].url,
           }
         })
-      })
-      .catch(err => {
-        console.warn(err);
-      });
-  }
+    })
+    .catch(err => {
+        console.warn('getNowPlaying ERROR: ', err);
+    });
+}
+
 
   render() {
     return (
       <div className="App">
-        <a href="http://localhost:8888">
-          <button>Login With Spotify</button>
-        </a>
-        <div> Now Playing: {this.state.nowPlaying.name} </div>
-        <div>
-          <img src={ this.state.nowPlaying.image } style={{ width:100 }}/>
-        </div>
+        { 
+          this.state.loggedIn 
+          ? <h1>Logged in</h1>
+          : <LoginButton /> 
+        }
+        <NowPlaying props={this.state.nowPlaying} />
         <div>
           <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
+              Check Now Playing
           </button>
         </div>
       </div>
