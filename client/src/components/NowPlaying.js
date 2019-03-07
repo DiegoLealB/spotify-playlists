@@ -3,7 +3,6 @@ import React from 'react';
 function NowPlaying(props) {
     var nowPlaying = { ...props };
     nowPlaying = nowPlaying.props;
-    console.log('in props', nowPlaying.props)
 
     return (
         <React.Fragment>

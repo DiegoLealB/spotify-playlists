@@ -51,7 +51,18 @@ class App extends Component {
     .catch(err => {
         console.warn('getNowPlaying ERROR: ', err);
     });
-}
+  }
+
+  getInfo() {
+    spotifyWebApi.getUserPlaylists()
+      .then(response => {
+        spotifyWebApi.getPlaylist(response.items[0].id)
+          .then(response => {
+            console.log(response);
+          })
+
+      })
+  }
 
 
   render() {
@@ -66,6 +77,11 @@ class App extends Component {
         <div>
           <button onClick={() => this.getNowPlaying()}>
               Check Now Playing
+          </button>
+        </div>
+        <div>
+          <button onClick={() => this.getInfo()}>
+            Get info
           </button>
         </div>
       </div>
