@@ -64,13 +64,22 @@ class App extends Component {
       })
   }
 
+  logOut() {
+    spotifyWebApi.setAccessToken('');
+    this.setState({
+      loggedIn: false,
+    });
+  }
+
 
   render() {
     return (
       <div className="App">
         { 
           this.state.loggedIn 
-          ? <h1>Logged in</h1>
+          ? <button onClick={() => this.logOut()}>
+              Log Out
+            </button>
           : <LoginButton /> 
         }
         <NowPlaying props={this.state.nowPlaying} />
