@@ -14,8 +14,8 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = process.env.CLIENT_ID; // Your client id
-var client_secret = process.env.CLIENT_SECRET; // Your secret
+var client_id = "41a86de586d34b15a1bacc5a3e0b4989"; // Your client id
+var client_secret = "e320d0df79f94f0cbeb4c8e28e95d8d8"; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
 /**
@@ -101,7 +101,7 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          console.log('Spotify request api', body);
         });
 
         // we can also pass the token to the browser to make requests from there
