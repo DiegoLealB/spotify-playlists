@@ -6,6 +6,7 @@ import Spotify from 'spotify-web-api-js';
 import LoginButton from './components/LoginButton';
 import NowPlaying from './components/NowPlaying';
 import UserProfile from './components/UserProfile';
+import Playlists from './components/Playlists';
 
 const spotifyWebApi = new Spotify();
 
@@ -54,17 +55,6 @@ class App extends Component {
     });
   }
 
-  getInfo() {
-    spotifyWebApi.getUserPlaylists()
-      .then(playlists => {
-        spotifyWebApi.getPlaylist(playlists.items[0].id)
-          .then(response => {
-            console.log(response);
-          })
-
-      })
-  }
-
   logOut() {
     spotifyWebApi.setAccessToken('');
     this.setState({
@@ -76,6 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <UserProfile />
         { this.state.loggedIn ? <button onClick={() => this.logOut()}>Log Out</button>
           : <LoginButton /> }
         <NowPlaying>{this.state.nowPlaying}</NowPlaying>
@@ -85,11 +76,8 @@ class App extends Component {
           </button>
         </div>
         <div>
-          <button onClick={() => this.getInfo()}>
-            Get info
-          </button>
+          <Playlists />
         </div>
-        <UserProfile />
       </div>
     );
   }
