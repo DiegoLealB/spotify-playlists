@@ -1,10 +1,18 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
+import getGenres from '../lib/getGenres';
+
 function Playlist(props) {
     const playlist = props.children
-    console.log('playlist props', playlist);
-
+    let trackIds = playlist.tracks.items
+    trackIds = trackIds.map(track => {
+        return track.track.id
+    })
+    let genresArr = trackIds.map(id => {
+        getGenres(id);
+    })
+    console.log(genresArr);
     const data = {
         title: 'Test Chart',
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -34,6 +42,7 @@ function Playlist(props) {
     return (
         <div>
             <h1>{playlist.name}</h1>
+            <h4> By: {playlist.owner.display_name}</h4>
             <img src={playlist.images[1].url}></img>
             <Pie data={data}></Pie>
         </div>
