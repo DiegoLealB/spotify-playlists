@@ -7,12 +7,10 @@ const spotifyWebApi = new Spotify();
 
 const styles = {
     avatar: {
-        position: 'absolute',
-        left: 0,
-        margin: '10px',
+        
     },
     profileContainer: {
-        width: '400px',
+        width: '200px',
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
@@ -20,9 +18,6 @@ const styles = {
     link: {
         textDecoration: 'none',
         color: 'black',
-        position: 'absolute',
-        left: '60px',
-        margin: '0, 0, 10, 0'
     }
 }
 
@@ -54,12 +49,13 @@ class UserProfile extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const { user } = this.state;
 
         return (
             <div className={classes.profileContainer}>
-                <Avatar className={classes.avatar}>{this.state.user.initial}</Avatar>
-                <a href={this.state.user.link} className={classes.link}>
-                    <h2>{this.state.user.name}</h2>
+                <Avatar className={classes.avatar}>{user.initial}</Avatar>
+                <a href={user.link} className={classes.link}>
+                    <h2>{user.name}</h2>
                 </a>
             </div>
         )
