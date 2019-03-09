@@ -1,53 +1,68 @@
 import React from 'react';
 import Spotify from 'spotify-web-api-js';
+import { withStyles } from '@material-ui/core/styles';
 
 import Playlist from './Playlist';
 
 const spotifyWebApi = new Spotify();
 
+const styles = {
+    playlistContainer: {
+        display: 'flex'
+    }
+}
+
 class Playlists extends React.Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             playlists: [],
+            loading: true,
+            token: props.children,
         }
     }
 
-    getPlaylists() {
-        spotifyWebApi.getUserPlaylists()
-            .then(playlists => {
-                playlists = playlists.items.map(playlist => { return playlist.id; })
-                let playlistsArr = [];
-                playlists.forEach(playlist => {
-                    spotifyWebApi.getPlaylist(playlist)
-                    .then(res => {
-                        playlistsArr.push(res)
-                    })
-                })
-                this.setState({
-                    playlists: playlistsArr,
-                })
-            })
+    async getPlaylists() {
+        try {
+            let playlists = await spotifyWebApi.getUserPlaylists();  
+            let playlistIds = playlists.items.map(playlist => { return playlist.id; })
+            
+            try {
+                let playlistArr = [];
+                for (let i = 0; i < playlistIds.length; i++) {
+                    let playlist = await spotifyWebApi.getPlaylist(playlistIds[i]);
+                    playlistArr.push(playlist);
+                }
+                this.setState({ playlists: playlistArr, loading: false });
+            } catch (error) {
+                console.error('Get Playlists Array error: ', error);
+            }
+        } catch (error) {
+            console.error('Get User Playlists error: ', error);
+        }
     }
 
     componentWillMount() {
-        this.getPlaylists();
+        this.getPlaylists()
     }
 
     render() {
-        // const { classes } = props;
-        const { playlists } = this.state;
+        const { classes } = this.props;
+        const { playlists, loading } = this.state;
 
         return (
-            <div>
-                {playlists.map(playlist => {
-                    return (
-                        <Playlist key={playlist.id}>{playlist}</Playlist>
-                    )
-                })}
+            <div className={classes.playlistContainer}>
+                {loading ? 
+                    <h1>Loading</h1>
+                    : playlists.map(playlist => {
+                        return (
+                            <Playlist key={playlist.id}>{playlist}</Playlist>
+                        )
+                    })
+                }
             </div>
         )
     }
 }
 
-export default Playlists;
+export default withStyles(styles)(Playlists);
