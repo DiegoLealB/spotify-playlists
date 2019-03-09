@@ -20,7 +20,8 @@ class App extends Component {
         name: 'Not Checked',
         alt: '',
         image: '',
-      }
+      },
+      token: params.access_token, 
     }
     if (params.access_token) {
       spotifyWebApi.setAccessToken(params.access_token);
@@ -76,7 +77,7 @@ class App extends Component {
           </button>
         </div>
         <div>
-          <Playlists />
+          <Playlists>{this.state.token}</Playlists>
         </div>
       </div>
     );
