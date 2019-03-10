@@ -2,15 +2,18 @@ import Spotify from 'spotify-web-api-js';
 
 const spotifyWebApi = new Spotify();
 
-function getGenres(trackId) {
-    spotifyWebApi.getTrack(trackId)
+function getGenres(trackIds) {
+    let ids = trackIds.slice(0, 50);
+    spotifyWebApi.getTracks(ids)
         .then(res => {
-            const albumId = res.album.id;
-            spotifyWebApi.getAlbum(albumId)
-                .then(album => {
-                    console.log(album)
-                    return album;
-                })
+            const albumId = res.tracks.album.id;
+            // spotifyWebApi.getAlbum(albumId)
+            //     .then(album => {
+            //         return album.genres;
+            //     })
+        })
+        .catch(err => {
+            console.error(err);
         })
 }
 
