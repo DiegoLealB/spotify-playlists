@@ -14,12 +14,11 @@ const styles = {
 }
 
 class Playlists extends React.Component{
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             playlists: [],
             loading: true,
-            token: props.children,
         }
     }
 
@@ -50,25 +49,22 @@ class Playlists extends React.Component{
     render() {
         const { classes } = this.props;
         const { playlists, loading } = this.state;
+        let playlistIds = playlists.map(playlist => { return playlist.id }) 
+        console.log(playlistIds)
 
-        console.log(playlists[0])
         return (
-            <Router>
-                <div className={classes.playlistContainer}>
-                    {loading ? <h1>Loading</h1>
-                        : playlists.map(playlist => {
-                            return (
-                                <div key={playlist.id}>
-                                    <Link to={`/playlist/${playlist.name}`}>
-                                        <h1>{playlist.name}</h1>
-                                        <Route path={`/playlist/${playlist.name}`} render={() => <Playlist>{playlist}</Playlist> }/>
-                                    </Link>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </Router>
+            <div className={classes.playlistContainer}>
+                {loading ? <h1>Loading</h1>
+                    : playlists.map(playlist => {
+                        return (
+                            <div>
+                                <Route key={playlist.id} path={`/playlist/${playlist.id}`} render={() => <Playlist {...playlist}/>} />
+                                <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         )
     }
 }
