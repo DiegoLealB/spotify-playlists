@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import './App.css';
+import Spotify from 'spotify-web-api-js';
 
 import HomePage from './containers/HomePage.container';
 import Header from './containers/Header.container';
 
+const spotifyWebApi = new Spotify();
+
 class App extends Component {
-  constructor() {
-    super();
-    
-  }
 
   render() {
     return (
       <Router>
         <div>
           <Header />
-          <Route exact path="/" component={HomePage} />
+          <Route path="/" render={(props) => <HomePage {...props}/>} />
         </div>
       </Router>
     );
