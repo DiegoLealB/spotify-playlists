@@ -17,7 +17,10 @@ const styles = {
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
-        const params = this.getHashParams();
+        let queryString = props.location.hash.substring(1);
+        
+        const params = this.getHashParams(queryString)
+        
         this.state = {
             loggedIn: params.access_token ? true : false,
             nowPlaying: {
@@ -32,15 +35,15 @@ class HomePage extends React.Component {
         }
     }
 
-    getHashParams() {
+    getHashParams(params) {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
-            q = window.location.hash.substring(1);
+            q = params
         while ( e = r.exec(q)) {
            hashParams[e[1]] = decodeURIComponent(e[2]);
         }
         return hashParams;
-      }
+    }
     
     getNowPlaying() {
         spotifyWebApi.getMyCurrentPlaybackState()
@@ -68,7 +71,7 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { token, loggedIn, nowPlaying } = this.state;
+        const { loggedIn, nowPlaying } = this.state;
         return (
             <div className="App">
                 <UserProfile />
@@ -80,7 +83,7 @@ class HomePage extends React.Component {
                     </button>
                 </div>
                 <div>
-                    <Playlists>{token}</Playlists>
+                    <Playlists />
                 </div>
             </div>
         )
