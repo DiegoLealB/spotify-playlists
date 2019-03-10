@@ -1,6 +1,7 @@
 import React from 'react';
 import Spotify from 'spotify-web-api-js';
 import { withStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Playlist from './Playlist';
 
@@ -50,17 +51,24 @@ class Playlists extends React.Component{
         const { classes } = this.props;
         const { playlists, loading } = this.state;
 
+        console.log(playlists[0])
         return (
-            <div className={classes.playlistContainer}>
-                {loading ? 
-                    <h1>Loading</h1>
-                    : playlists.map(playlist => {
-                        return (
-                            <Playlist key={playlist.id}>{playlist}</Playlist>
-                        )
-                    })
-                }
-            </div>
+            <Router>
+                <div className={classes.playlistContainer}>
+                    {loading ? <h1>Loading</h1>
+                        : playlists.map(playlist => {
+                            return (
+                                <div key={playlist.id}>
+                                    <Link to={`/playlist/${playlist.name}`}>
+                                        <h1>{playlist.name}</h1>
+                                        <Route path={`/playlist/${playlist.name}`} render={() => <Playlist>{playlist}</Playlist> }/>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </Router>
         )
     }
 }
