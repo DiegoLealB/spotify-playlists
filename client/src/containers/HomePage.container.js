@@ -4,7 +4,7 @@ import Spotify from 'spotify-web-api-js';
 
 // Component imports
 import LoginButton from '../components/LoginButton';
-import NowPlaying from '../components/NowPlaying';
+// import NowPlaying from '../components/NowPlaying';
 import UserProfile from '../components/UserProfile';
 import Playlists from '../components/Playlists';
 
@@ -49,7 +49,6 @@ class HomePage extends React.Component {
         spotifyWebApi.getMyCurrentPlaybackState()
             .then((response) => {
 
-            // console.log('getMyCurrentPlaybackState response', response);
             this.setState({
                 nowPlaying: {
                     name: response.item.name,
@@ -71,17 +70,17 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { loggedIn, nowPlaying } = this.state;
+        const { loggedIn } = this.state;
         return (
             <div className="App">
                 <UserProfile />
                     { loggedIn ? <button onClick={() => this.logOut()}>Log Out</button> : <LoginButton /> }
-                <NowPlaying>{ nowPlaying }</NowPlaying>
+                {/* <NowPlaying>{ nowPlaying }</NowPlaying>
                 <div>
                     <button onClick={() => this.getNowPlaying()}>
                         Check Now Playing
                     </button>
-                </div>
+                </div> */}
                 <div>
                     <Playlists />
                 </div>
