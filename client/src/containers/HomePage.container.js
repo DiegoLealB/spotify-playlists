@@ -7,6 +7,7 @@ import LoginButton from '../components/LoginButton';
 // import NowPlaying from '../components/NowPlaying';
 import UserProfile from '../components/UserProfile';
 import Playlists from '../components/Playlists';
+import Search from '../components/Search';
 
 const spotifyWebApi = new Spotify();
 
@@ -74,7 +75,8 @@ class HomePage extends React.Component {
         return (
             <div className="App">
                 <UserProfile />
-                    { loggedIn ? <button onClick={() => this.logOut()}>Log Out</button> : <LoginButton /> }
+                { loggedIn ? <button onClick={() => this.logOut()}>Log Out</button> : <LoginButton /> }
+                <Search />
                 {/* <NowPlaying>{ nowPlaying }</NowPlaying>
                 <div>
                     <button onClick={() => this.getNowPlaying()}>
