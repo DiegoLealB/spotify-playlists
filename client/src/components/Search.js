@@ -1,11 +1,15 @@
 import React from 'react';
 import Spotify from 'spotify-web-api-js';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import PlaylistInfo from './PlaylistInfo';
 
 const spotifyWebApi = new Spotify();
-// 5Jd4BmGVIyhboY66hmLaii
 
 const styles = theme => ({
     textField: {
@@ -17,6 +21,14 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
+    listRoot: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+        postition: 'relative',
+        overflow: 'auto',
+        maxHeight: 300
+    }
   });
 
 class Search extends React.Component{
@@ -24,6 +36,9 @@ class Search extends React.Component{
         super();
         this.state = {
             searchField: '',
+            playlists: {},
+            selectedPlaylist: 'none',
+            showList: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,7 +47,10 @@ class Search extends React.Component{
         event.preventDefault();
         spotifyWebApi.searchPlaylists(this.state.searchField)
             .then(res => {
-                console.log(res);
+                this.setState({
+                    playlists: res.playlists,
+                    showList: true,
+                })
             })
     }
 
@@ -40,19 +58,56 @@ class Search extends React.Component{
         this.setState({ [name]: event.target.value })
     }
 
+    getPlaylist(id) {
+        spotifyWebApi.getPlaylist(id)
+            .then(res => {
+                this.setState({
+                    selectedPlaylist: res,
+                    showList: false,
+                })
+            })
+    }
+
     render() {
         const { classes } = this.props;
+        const { showList, playlists, selectedPlaylist } = this.state;
+        let playlistNames, playlistIds, playlistOwners;
+
+        if (playlists.items !== undefined) {
+            playlistNames = playlists.items.map(playlist => { return playlist.name });
+            playlistIds = playlists.items.map(playlist => { return playlist.id });
+            playlistOwners = playlists.items.map(playlist => { return playlist.owner.display_name });
+        }
 
         return (
-            <form className={classes.container} onSubmit={this.handleSubmit}>
-                <TextField 
-                    id="seachField"
-                    label="Search for playlists"
-                    className={classes.textField}
-                    value={this.state.searchField}
-                    onChange={this.handleChange("searchField")}
-                />
-            </form>
+            <div>
+                <form className={classes.container}>
+                    <TextField 
+                        id="seachField"
+                        label="Search for playlists"
+                        className={classes.textField}
+                        value={this.state.searchField}
+                        onChange={this.handleChange("searchField")}
+                    />
+                    <Button variant="contained" onClick={this.handleSubmit}>
+                        Search
+                    </Button>
+                </form>
+                {showList ? 
+                <List className={classes.listRoot}>
+                    {playlistNames.map((name, count) => {
+                        return (
+                            <ListItem key={playlistIds[count]}>
+                                <Button onClick={() => this.getPlaylist(playlistIds[count])}>{`${name}`}</Button>  By: {playlistOwners[count]}
+                            </ListItem>
+                        )
+                    })}
+                </List>
+                : null}
+                {(selectedPlaylist === 'none') ? null : 
+                    <PlaylistInfo {...selectedPlaylist} />
+                }
+            </div>
         )
     }
 }

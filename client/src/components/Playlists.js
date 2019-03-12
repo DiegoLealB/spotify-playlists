@@ -53,17 +53,8 @@ class Playlists extends React.Component{
         return (
             <div className={classes.playlistContainer}>
                 {loading ? <h1>Loading</h1> : playlists.map(playlist => {
-                    return (
-                        <Playlist key={playlist.id} {...playlist} />
-                    )
-                        // return (
-                        //     <div key={playlist.id}>
-                        //         <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
-                        //         <Route path={`/playlist/${playlist.id}`} render={() => <Playlist {...playlist}/>} />
-                        //     </div>
-                        // )
-                    })
-                }
+                    return <Playlist key={playlist.id} {...playlist} />
+                })}
             </div>
         )
     }

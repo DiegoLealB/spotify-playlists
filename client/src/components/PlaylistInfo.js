@@ -17,7 +17,10 @@ function PlaylistInfo(props) {
     return (
         <div>
             <h4> By: {playlist.owner.display_name}</h4>
-            <img src={playlist.images[1].url} alt={playlist.name}></img>
+            {playlist.images[1] === undefined ?
+            playlist.images[0] === undefined ? <h1>No image</h1> 
+            : <img src={playlist.images[0].url} alt={playlist.name}></img>
+            : <img src={playlist.images[1].url} alt={playlist.name}></img> }
             <br />
             <Line data={timeData} />
             <Pie data={userContributionData} />
