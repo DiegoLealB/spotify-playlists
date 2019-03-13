@@ -24,7 +24,7 @@ class Playlists extends React.Component{
 
     async getPlaylists() {
         try {
-            let playlists = await spotifyWebApi.getUserPlaylists();  
+            let playlists = await spotifyWebApi.getUserPlaylists();
             let playlistIds = playlists.items.map(playlist => { return playlist.id; })
             
             try {

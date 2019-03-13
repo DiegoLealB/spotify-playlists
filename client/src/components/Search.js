@@ -5,7 +5,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import SearchIcon from '@material-ui/icons/Search';
+import Close from '@material-ui/icons/Close';
 
 import PlaylistInfo from './PlaylistInfo';
 
@@ -27,7 +29,8 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         postition: 'relative',
         overflow: 'auto',
-        maxHeight: 300
+        maxHeight: 300,
+        zIndex: 100,
     }
   });
 
@@ -68,6 +71,13 @@ class Search extends React.Component{
             })
     }
 
+    closeList(event) {
+        event.preventDefault();
+        this.setState({
+            showList: false,
+        })
+    }
+
     render() {
         const { classes } = this.props;
         const { showList, playlists, selectedPlaylist } = this.state;
@@ -90,11 +100,14 @@ class Search extends React.Component{
                         onChange={this.handleChange("searchField")}
                     />
                     <Button variant="contained" onClick={this.handleSubmit}>
-                        Search
+                        <SearchIcon />
                     </Button>
                 </form>
                 {showList ? 
-                <List className={classes.listRoot}>
+                <List 
+                    className={classes.listRoot}
+                    subheader={<ListSubheader component="div">Playlists<Button onClick={(event) => this.closeList(event)}><Close /></Button></ListSubheader>}
+                >
                     {playlistNames.map((name, count) => {
                         return (
                             <ListItem key={playlistIds[count]}>
