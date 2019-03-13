@@ -9,13 +9,13 @@
 
 require('dotenv').config();
 var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
+var request = require('request'); // 'Request' library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = "41a86de586d34b15a1bacc5a3e0b4989"; // Your client id
-var client_secret = "e320d0df79f94f0cbeb4c8e28e95d8d8"; // Your secret
+var client_id = '41a86de586d34b15a1bacc5a3e0b4989'; // Your client id
+var client_secret = 'e320d0df79f94f0cbeb4c8e28e95d8d8'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
 /**
