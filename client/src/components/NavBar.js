@@ -3,8 +3,8 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+// import RouteMenu from './RouteMenu';
 import { withStyles } from '@material-ui/core/styles';
-
 
 import UserProfile from './UserProfile';
 import Search from './Search';
@@ -16,7 +16,10 @@ const styles = theme => ({
     },
     title: {
         fontSize: '30px',
-        color: 'black'
+        color: 'black',
+    },
+    navbar: {
+        height: '80px',
     }
 })
 
@@ -27,8 +30,9 @@ class NavBar extends React.Component{
 
         return (
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position='static' className={classes.navbar}>
                     <Toolbar>
+                        {/* <RouteMenu /> */}
                         <UserProfile />
                         <Typography className={classes.title}>Spotify Playlist Info</Typography>
                         <Search />

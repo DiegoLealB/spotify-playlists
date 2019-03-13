@@ -22,6 +22,7 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
+        
     },
     listRoot: {
         width: '100%',
@@ -95,6 +96,7 @@ class Search extends React.Component{
                     <TextField 
                         id="seachField"
                         label="Search for playlists"
+                        type="Search"
                         className={classes.textField}
                         value={this.state.searchField}
                         onChange={this.handleChange("searchField")}
