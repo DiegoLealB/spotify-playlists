@@ -9,6 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import SearchIcon from '@material-ui/icons/Search';
 import Close from '@material-ui/icons/Close';
 
+import Playlist from './Playlist';
 import PlaylistInfo from './PlaylistInfo';
 
 const spotifyWebApi = new Spotify();
@@ -83,6 +84,7 @@ class Search extends React.Component{
         const { classes } = this.props;
         const { showList, playlists, selectedPlaylist } = this.state;
         let playlistNames, playlistIds, playlistOwners;
+        console.log(selectedPlaylist)
 
         if (playlists.items !== undefined) {
             playlistNames = playlists.items.map(playlist => { return playlist.name });
@@ -120,7 +122,7 @@ class Search extends React.Component{
                 </List>
                 : null}
                 {(selectedPlaylist === 'none') ? null : 
-                    <PlaylistInfo {...selectedPlaylist} />
+                    <PlaylistInfo playlist={selectedPlaylist}></PlaylistInfo>
                 }
             </div>
         )

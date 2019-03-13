@@ -11,13 +11,14 @@ const styles = {
     avatar: {
         width: 60,
         height: 60,
-        marginTop: 5,
+        position: 'relative',
+        left: '0px',    
     },
     profileContainer: {
-        width: '300px',
+        width: '400px',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
     },
     link: {
         textDecoration: 'none',
@@ -26,7 +27,6 @@ const styles = {
     name: {
         fontSize: '30px',
         marginTop: '10px',
-        marginLeft: '-20px',
     }
 }
 
@@ -39,14 +39,18 @@ class UserProfile extends React.Component {
     }
 
     async getUser() {
-        let user = await spotifyWebApi.getMe();
-        return user;
+        try {
+            let user = await spotifyWebApi.getMe();
+            return user;
+        } catch(err) {
+            console.error('Get user error: ', err);
+        }
     }
 
     componentWillMount() {
         this.getUser()
             .then(user => {
-                if (user.images[0] !== undefined) {
+                if (user !== undefined) {
                     this.setState({
                         user: {
                             name: user.display_name,
@@ -67,6 +71,8 @@ class UserProfile extends React.Component {
                         }
                     })
                 }
+            }).catch(error => {
+                console.error('getUser error: ', error);
             })
     }
 

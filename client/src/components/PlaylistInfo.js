@@ -9,11 +9,14 @@ const styles = {
 
 }
 
-function PlaylistInfo(props) {
-    const playlist = props;
+const PlaylistInfo = ({ playlist })  => {
     const tracks = playlist.tracks.items
     const timeData = getDatesByYear(tracks);
-    const userContributionData = getUserContributions(tracks);
+    let userContributionData = {};
+    if (playlist.collaborative) {
+        userContributionData = getUserContributions(tracks);
+    }
+    
     return (
         <div>
             <h4> By: {playlist.owner.display_name}</h4>
@@ -23,7 +26,9 @@ function PlaylistInfo(props) {
             : <img src={playlist.images[1].url} alt={playlist.name}></img> }
             <br />
             <Line data={timeData} />
-            <Pie data={userContributionData} />
+            { userContributionData.datasets ?
+                <Pie data={userContributionData} />
+            : null }
         </div>
     )
 }

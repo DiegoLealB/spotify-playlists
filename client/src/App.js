@@ -4,6 +4,7 @@ import Spotify from 'spotify-web-api-js';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
+import pink from '@material-ui/core/colors/pink';
 
 import HomePage from './containers/HomePage.container';
 import NavBar from './components/NavBar';
@@ -15,6 +16,7 @@ const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: green,
+    secondary: pink,
   },
   typography: { useNextVariants: true },
   paper: {

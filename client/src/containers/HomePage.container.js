@@ -1,13 +1,13 @@
 import React from 'react';
 
 // Component imports
-import Playlists from '../components/Playlists';
+import PlaylistSelect from '../components/PlaylistSelect';
 
 class HomePage extends React.Component {
     render() {
         return (
-            <div>
-                <Playlists />
+            <div style={{backgroundColor: 'black'}}>
+                <PlaylistSelect />
             </div>
         )
     }
