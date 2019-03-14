@@ -98,7 +98,7 @@ class PlaylistSelect extends React.Component{
                     </FormControl>
                 }
                 { selectedPlaylist.id ? 
-                    <Playlist>{this.state.selectedPlaylist.id}</Playlist>
+                    <Playlist>{selectedPlaylist.id}</Playlist>
                 : null }
             </div>
         )

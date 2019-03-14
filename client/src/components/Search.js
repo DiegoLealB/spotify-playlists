@@ -84,7 +84,6 @@ class Search extends React.Component{
         const { classes } = this.props;
         const { showList, playlists, selectedPlaylist } = this.state;
         let playlistNames, playlistIds, playlistOwners;
-        console.log(selectedPlaylist)
 
         if (playlists.items !== undefined) {
             playlistNames = playlists.items.map(playlist => { return playlist.name });

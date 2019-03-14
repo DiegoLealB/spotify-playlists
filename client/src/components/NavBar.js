@@ -12,7 +12,7 @@ import Search from './Search';
 const styles = theme => ({
     root: {
         width: '100%',
-        marginBottom: '20px',
+        // marginBottom: '20px',
     },
     title: {
         fontSize: '30px',
