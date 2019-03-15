@@ -42,7 +42,6 @@ async function getUserContribution(tracksArr) {
     
     async function setUsersObj() {
         const usersObj = {
-            title: 'Playlist contributions by user',
             labels: userNames,
             datasets: [{
                 label: '# of songs',

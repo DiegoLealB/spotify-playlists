@@ -42,9 +42,10 @@ class App extends React.Component {
   }
 
   getHashParams(params) {
-      var hashParams = {};
-      var e, r = /([^&;=]+)=?([^&;]*)/g,
-          q = params
+    var hashParams = {};
+    var e, r = /([^&;=]+)=?([^&;]*)/g,
+    q = params
+      // eslint-disable-next-line
       while ( e = r.exec(q)) {
         hashParams[e[1]] = decodeURIComponent(e[2]);
       }

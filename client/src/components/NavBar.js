@@ -12,14 +12,19 @@ import Search from './Search';
 const styles = theme => ({
     root: {
         width: '100%',
-        // marginBottom: '20px',
     },
     title: {
         fontSize: '30px',
         color: 'black',
+        // display: 'inline',
+        // marginLeft: 'auto',
+        // marginRight: 'auto',
     },
     navbar: {
         height: '80px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
 })
 
@@ -30,8 +35,8 @@ class NavBar extends React.Component{
 
         return (
             <div className={classes.root}>
-                <AppBar position='static' className={classes.navbar}>
-                    <Toolbar>
+                <AppBar position='static'>
+                    <Toolbar className={classes.navbar}>
                         {/* <RouteMenu /> */}
                         <UserProfile />
                         <Typography className={classes.title}>Spotify Playlist Info</Typography>

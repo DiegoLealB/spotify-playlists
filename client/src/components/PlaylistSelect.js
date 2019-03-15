@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -17,28 +16,23 @@ const spotifyWebApi = new Spotify();
 
 const styles = theme => ({
     selectContainer: {
-        display: 'flex',
+        display: 'block',
         margin: 'auto',
         width: '90%',
         padding: '10px',
     },
-    // listContainer: {
-    //     maxHeight: 500,
-    //     postition: 'relative',
-    // },
     listItem: {
         width: 300,
         maxHeight: 300,
         maxWidth: 400,
     },
     selectField: {
-        width: 1000,
-        height: 100,
+        maxWidth: 1000,
         display: 'block',
     },
     formControl: {
-        display: 'block',
-        overflow: 'auto',
+        margin: 'auto',
+        width: '90%',
     },
     card: {
         display: 'flex',
@@ -46,11 +40,6 @@ const styles = theme => ({
     details: {
         display: 'flex',
         flexDirection: 'column',
-    },
-    media: {
-        height: '150px',
-        width: '150px',
-        display: 'inline-block'
     },
     content: {
         flex: '1 0 auto',
@@ -134,13 +123,6 @@ class PlaylistSelect extends React.Component{
                             >
                                 {playlists.items.map(playlist => (
                                     <Card className={classes.card} key={playlist.id} onChange={this.handleChange} value={playlist.id}>
-                                        {/* <CardMedia 
-                                            component='img'
-                                            alt={playlist.name}
-                                            className={classes.media}
-                                            height='140'
-                                            src={playlist.images[0].url}
-                                        /> */}
                                         <CardActionArea value={playlist.id}>
                                             <div className={classes.details}>
                                                 <CardContent className={classes.content}>

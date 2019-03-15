@@ -15,7 +15,7 @@ const styles = {
         left: '0px',    
     },
     profileContainer: {
-        width: '400px',
+        maxWidth: '300px',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',

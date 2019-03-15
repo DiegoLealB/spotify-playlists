@@ -8,10 +8,6 @@ import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
 
 const styles = {
-    playlistImage: {
-        width: 300,
-        height: 300,
-    },
     title: {
         position: 'relative',
     },
@@ -34,10 +30,13 @@ const styles = {
         margin: '20px',
     },
     description: {
-        maxWidth: '60%'
+        maxWidth: '60%',
     },
     collaborative: {
         float: 'right',
+    },
+    a: {
+        textDecoration: 'none',
     },
 }
 
@@ -69,6 +68,13 @@ class PlaylistInfo extends React.Component{
         const { playlist, userContributionData } = this.state;
         const tracks = playlist.tracks.items;
         const timeData = getDatesByYear(tracks);
+        const options = {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: 'Playlist contributions by user',
+            },
+        }
         
         return (
             <Paper>
@@ -76,22 +82,23 @@ class PlaylistInfo extends React.Component{
                     { playlist.images[0] === undefined ? <h1>No image</h1> 
                     : <img src={ playlist.images[0].url } alt={ playlist.name } className={ classes.playlistImage }></img> }
                     <div className={ classes.details }>
-                        <Typography component='h3' variant='h3' className={ classes.title }>{ playlist.name }</Typography>
+                        <Typography component='h3' variant='h3' className={ classes.title }>
+                            <a href={ playlist.external_urls.spotify } className={ classes.a }>{ playlist.name }</a>
+                        </Typography>
                         <Typography variant='subtitle1' className={ classes.subtitle }> By: { playlist.owner.display_name }</Typography>
                         <Typography variant='h6' className={ classes.description }>{ playlist.description }</Typography>
                         <br />
-                        <Typography variant='h6'><a href={ playlist.external_urls.spotify }>Link to playlist</a></Typography>
                         <Typography variant='h6'>Followers: { playlist.followers.total }</Typography>
+                        <Typography variant='h6'>Track count: { playlist.tracks.items.length }</Typography>
                         <Typography variant='h6'>Collaborative: { playlist.collaborative ? 'Yes' : 'No' } </Typography>
                         <Typography variant='h6'>Privacy: { playlist.public ? 'Public' : 'Private' }</Typography>
-                        <Typography variant='h6'>Track count: { playlist.tracks.items.length }</Typography>
                     </div>
                 </div>
                 <br />
                 <div className={ classes.graphs }>
                     <Line data={ timeData } />
                     { userContributionData && playlist.collaborative === true ?
-                        <Pie data={ userContributionData } className={ classes.collaborative }/>
+                        <Pie data={ userContributionData } options={ options } className={ classes.collaborative }/>
                     : null }
                 </div>
             </Paper>
