@@ -9,15 +9,12 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import SearchIcon from '@material-ui/icons/Search';
 import Close from '@material-ui/icons/Close';
 
-import Playlist from './Playlist';
 import PlaylistInfo from './PlaylistInfo';
 
 const spotifyWebApi = new Spotify();
 
 const styles = theme => ({
     textField: {
-    //   marginLeft: theme.spacing.unit,
-    //   marginRight: theme.spacing.unit,
       width: 200,
     },
     container: {
