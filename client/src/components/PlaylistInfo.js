@@ -67,7 +67,8 @@ class PlaylistInfo extends React.Component{
     render() {
         const { classes } = this.props;
         const { playlist, userContributionData } = this.state;
-        const tracks = playlist.tracks.items;
+
+        let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
         const contributionOptions = {
@@ -91,7 +92,7 @@ class PlaylistInfo extends React.Component{
                         <Typography variant='h6' className={ classes.description }>{ playlist.description }</Typography>
                         <br />
                         <Typography variant='h6'>Followers: { playlist.followers.total }</Typography>
-                        <Typography variant='h6'>Track count: { playlist.tracks.items.length }</Typography>
+                        <Typography variant='h6'>Track count: { playlist.tracks.total }</Typography>
                         <Typography variant='h6'>Collaborative: { playlist.collaborative ? 'Yes' : 'No' } </Typography>
                         <Typography variant='h6'>Privacy: { playlist.public ? 'Public' : 'Private' }</Typography>
                     </div>

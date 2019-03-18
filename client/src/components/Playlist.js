@@ -19,6 +19,16 @@ class Playlist extends React.Component {
     async getPlaylist() {
         try {
             let res = await spotifyWebApi.getPlaylist(this.state.id);
+            let tracksArr = [...res.tracks.items];
+            if (res.tracks.next) {
+                let moreTracks = await spotifyWebApi.getGeneric(res.tracks.next);
+                tracksArr.push(...moreTracks.items);
+                while (moreTracks.next) {
+                    moreTracks = await spotifyWebApi.getGeneric(moreTracks.next);
+                    tracksArr.push(...moreTracks.items);
+                }
+                res.tracks.items = tracksArr;
+            }
             this.setState({
                 loading: false,
                 playlist: res,
@@ -34,12 +44,12 @@ class Playlist extends React.Component {
     
     render() {
         const { loading, playlist } = this.state;
+
         return (
             <div>
-                {loading ? <Loading /> : 
+                { loading ? <Loading /> : 
                 <PlaylistInfo playlist={playlist} />
-            }
-                {/* <h1>{playlist.name}</h1> */}
+                }
             </div>
         )
     }
