@@ -48,7 +48,7 @@ class Playlist extends React.Component {
         return (
             <div>
                 { loading ? <Loading /> : 
-                <PlaylistInfo playlist={playlist} />
+                <PlaylistInfo playlist={ playlist } />
                 }
             </div>
         )

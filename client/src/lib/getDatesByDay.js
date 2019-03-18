@@ -40,5 +40,3 @@ function getDatesByDay(tracksArr) {
 }
 
 export default getDatesByDay;
-
-// 4055224037 Laurine State of Oklahome treasury
