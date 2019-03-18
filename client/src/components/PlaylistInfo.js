@@ -1,11 +1,12 @@
 import React from 'react';
-import { Pie, Line } from 'react-chartjs-2';
+import { Pie, Line, Radar } from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
+import getDatesByDay from '../lib/getDatesByDay';
 
 const styles = {
     title: {
@@ -67,8 +68,9 @@ class PlaylistInfo extends React.Component{
         const { classes } = this.props;
         const { playlist, userContributionData } = this.state;
         const tracks = playlist.tracks.items;
-        const timeData = getDatesByYear(tracks);
-        const options = {
+        const yearData = getDatesByYear(tracks);
+        const dayData = getDatesByDay(tracks);
+        const contributionOptions = {
             title: {
                 display: true,
                 fontSize: 20,
@@ -96,9 +98,10 @@ class PlaylistInfo extends React.Component{
                 </div>
                 <br />
                 <div className={ classes.graphs }>
-                    <Line data={ timeData } />
+                    <Line data={ yearData } />
+                    <Radar data={ dayData } />
                     { userContributionData && playlist.collaborative === true ?
-                        <Pie data={ userContributionData } options={ options } className={ classes.collaborative }/>
+                        <Pie data={ userContributionData } options={ contributionOptions } className={ classes.collaborative }/>
                     : null }
                 </div>
             </Paper>
