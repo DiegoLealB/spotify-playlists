@@ -88,7 +88,7 @@ class PlaylistInfo extends React.Component{
                 text: 'Playlist contributions by user',
             },
         };
-        
+
         return (
             <Paper>
                 <div className={ classes.header }>

@@ -20,6 +20,7 @@ class Playlist extends React.Component {
         try {
             let res = await spotifyWebApi.getPlaylist(this.state.id);
             let tracksArr = [...res.tracks.items];
+            // If playlist has more than 100 tracks a next propery shows url to find next 100 tracks
             if (res.tracks.next) {
                 let moreTracks = await spotifyWebApi.getGeneric(res.tracks.next);
                 tracksArr.push(...moreTracks.items);

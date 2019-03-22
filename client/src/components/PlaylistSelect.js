@@ -6,11 +6,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 
 import Playlist from './Playlist';
 import Loading from './Loading';
-import { Typography } from '@material-ui/core';
 
 const spotifyWebApi = new Spotify();
 
@@ -110,7 +110,7 @@ class PlaylistSelect extends React.Component{
         return (
             <div>
                 <div className={classes.selectContainer}>
-                    <Typography component='h4' variant='h4'>Select one of your playlists</Typography>
+                    <Typography component='h4' variant='h4'>Select one of your playlists to analyze</Typography>
                     {loading ? <Loading /> :
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor='playlist-select' className={ classes.inputLabel }>Playlists</InputLabel>
