@@ -92,7 +92,7 @@ class PlaylistInfo extends React.Component{
         return (
             <Paper>
                 <div className={ classes.header }>
-                    { playlist.images[0] === undefined ? <h1>No image</h1> 
+                    { playlist.images[0] === undefined ? <h1> No image </h1> 
                     : <img src={ playlist.images[0].url } alt={ playlist.name } className={ classes.playlistImage }></img> }
                     <div className={ classes.details }>
                         <Typography component='h3' variant='h3' className={ classes.title }>
