@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
 import getDatesByDay from '../lib/getDatesByDay';
+import TimeGraph from './TimeGraph';
 
 const styles = {
     title: {
@@ -110,7 +111,8 @@ class PlaylistInfo extends React.Component{
                 <br />
                 <div className={ classes.graphs }>
                     <div className={ classes.graphContainer }>
-                        <Line data={ yearData } />
+                        <TimeGraph>{ yearData }</TimeGraph>
+                        {/* <Line data={ yearData } /> */}
                     </div>
                     <div className={ classes.graphContainer }>
                         <Radar data={ dayData } />
