@@ -27,6 +27,8 @@ const styles = {
     name: {
         fontSize: '30px',
         marginTop: '10px',
+        marginLeft: '10px',
+        color: 'black',
     }
 }
 

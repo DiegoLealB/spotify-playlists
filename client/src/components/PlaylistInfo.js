@@ -38,6 +38,16 @@ const styles = {
     },
     a: {
         textDecoration: 'none',
+        color: 'white',
+    },
+    graphs: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    graphContainer: {
+        width: '500px',
+        height: '500px',
     },
 }
 
@@ -77,12 +87,12 @@ class PlaylistInfo extends React.Component{
                 fontSize: 20,
                 text: 'Playlist contributions by user',
             },
-        }
-        
+        };
+
         return (
             <Paper>
                 <div className={ classes.header }>
-                    { playlist.images[0] === undefined ? <h1>No image</h1> 
+                    { playlist.images[0] === undefined ? <h1> No image </h1> 
                     : <img src={ playlist.images[0].url } alt={ playlist.name } className={ classes.playlistImage }></img> }
                     <div className={ classes.details }>
                         <Typography component='h3' variant='h3' className={ classes.title }>
@@ -99,10 +109,16 @@ class PlaylistInfo extends React.Component{
                 </div>
                 <br />
                 <div className={ classes.graphs }>
-                    <Line data={ yearData } />
-                    <Radar data={ dayData } />
+                    <div className={ classes.graphContainer }>
+                        <Line data={ yearData } />
+                    </div>
+                    <div className={ classes.graphContainer }>
+                        <Radar data={ dayData } />
+                    </div>
                     { userContributionData && playlist.collaborative === true ?
+                    <div className={ classes.graphContainer }>
                         <Pie data={ userContributionData } options={ contributionOptions } className={ classes.collaborative }/>
+                    </div>
                     : null }
                 </div>
             </Paper>

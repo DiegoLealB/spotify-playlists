@@ -6,11 +6,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 
 import Playlist from './Playlist';
 import Loading from './Loading';
-import { Typography } from '@material-ui/core';
 
 const spotifyWebApi = new Spotify();
 
@@ -24,15 +24,18 @@ const styles = theme => ({
     listItem: {
         width: 300,
         maxHeight: 300,
-        maxWidth: 400,
-    },
-    selectField: {
-        maxWidth: 1000,
-        display: 'block',
+        maxWidth: 300,
     },
     formControl: {
         margin: 'auto',
-        width: '90%',
+        width: '100%',
+    },
+    inputLabel: {
+        height: '300px',
+    },
+    selectField: {
+        width: '100%',
+        display: 'block',
     },
     card: {
         display: 'flex',
@@ -107,9 +110,10 @@ class PlaylistSelect extends React.Component{
         return (
             <div>
                 <div className={classes.selectContainer}>
+                    <Typography component='h4' variant='h4'>Select one of your playlists to analyze</Typography>
                     {loading ? <Loading /> :
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor='playlist-select'>Playlists</InputLabel>
+                            <InputLabel htmlFor='playlist-select' className={ classes.inputLabel }>Playlists</InputLabel>
                             <Select
                                 open={open}
                                 onClose={this.handleClose}
