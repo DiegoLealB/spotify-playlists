@@ -47,6 +47,11 @@ const styles = theme => ({
     content: {
         flex: '1 0 auto',
     },
+    title: {
+        textAlign: 'center',
+        margin: 10,
+        padding: 10,
+    },
 });
 
 const MenuProps = {
@@ -110,7 +115,7 @@ class PlaylistSelect extends React.Component{
         return (
             <div>
                 <div className={classes.selectContainer}>
-                    <Typography component='h4' variant='h4'>Select one of your playlists to analyze</Typography>
+                    <Typography component='h4' variant='h4' className={ classes.title }>Select one of your playlists to analyze</Typography>
                     {loading ? <Loading /> :
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor='playlist-select' className={ classes.inputLabel }>Playlists</InputLabel>
