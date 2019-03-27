@@ -4,7 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { InputLabel, Select, MenuItem } from '@material-ui/core';
 
 const styles = {
-
+    inputLabel: {
+        width: '50%',
+        margin: 'auto',
+        display: 'block',
+    },
+    select: {
+        width: '50%',
+        margin: 'auto',
+        display: 'block',
+    },
 }
 
 class PlaylistGraphs extends React.Component {
@@ -20,7 +29,7 @@ class PlaylistGraphs extends React.Component {
     };
 
     getRandomGraph() {
-        const graphTypes = ['Bar', 'Line', 'Polar', 'Pie', 'Dougnut', 'Bubble'];
+        const graphTypes = ['Bar', 'Line', 'Pie', 'Doughnut'];
         const randomNum = Math.floor(Math.random() * graphTypes.length);
         return graphTypes[randomNum];
     }
@@ -42,11 +51,12 @@ class PlaylistGraphs extends React.Component {
 
         return (
             <div>
-                <InputLabel htmlFor="customized-select">Graph type</InputLabel>
+                <InputLabel htmlFor="customized-select" className={classes.inputLabel}>Graph type</InputLabel>
                 <Select
                     value={ this.state.graph }
                     onChange={ this.handleChange }
                     id="customized-select"
+                    className={ classes.select }
                 >
                     <MenuItem value='Bar'>Bar</MenuItem>
                     <MenuItem value='Bubble'>Bubble</MenuItem>

@@ -114,7 +114,7 @@ class PlaylistSelect extends React.Component{
 
         return (
             <div>
-                <div className={classes.selectContainer}>
+                <div className={ classes.selectContainer }>
                     <Typography component='h4' variant='h4' className={ classes.title }>Select one of your playlists to analyze</Typography>
                     {loading ? <Loading /> :
                         <FormControl className={classes.formControl}>
