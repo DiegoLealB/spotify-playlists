@@ -1,5 +1,4 @@
 import React from 'react';
-import { Pie, Line, Radar } from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
 import getDatesByDay from '../lib/getDatesByDay';
-import TimeGraph from './TimeGraph';
+import PlaylistGraph from './PlaylistGraph';
 
 const styles = {
     title: {
@@ -33,9 +32,6 @@ const styles = {
     },
     description: {
         maxWidth: '60%',
-    },
-    collaborative: {
-        float: 'right',
     },
     a: {
         textDecoration: 'none',
@@ -65,7 +61,7 @@ class PlaylistInfo extends React.Component{
         try {
             const tracks = this.state.playlist.tracks.items;
             if (this.state.playlist.collaborative && !this.state.userContributionData) {
-                const res = await getUserContributions(tracks)
+                let res = await getUserContributions(tracks);
                 this.setState({
                     userContributionData: res,
                 })
@@ -82,13 +78,6 @@ class PlaylistInfo extends React.Component{
         let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
-        const contributionOptions = {
-            title: {
-                display: true,
-                fontSize: 20,
-                text: 'Playlist contributions by user',
-            },
-        };
 
         return (
             <Paper>
@@ -111,15 +100,14 @@ class PlaylistInfo extends React.Component{
                 <br />
                 <div className={ classes.graphs }>
                     <div className={ classes.graphContainer }>
-                        <TimeGraph>{ yearData }</TimeGraph>
-                        {/* <Line data={ yearData } /> */}
+                        <PlaylistGraph>{ yearData }</PlaylistGraph>
                     </div>
                     <div className={ classes.graphContainer }>
-                        <Radar data={ dayData } />
+                        <PlaylistGraph>{ dayData }</PlaylistGraph>
                     </div>
                     { userContributionData && playlist.collaborative === true ?
                     <div className={ classes.graphContainer }>
-                        <Pie data={ userContributionData } options={ contributionOptions } className={ classes.collaborative }/>
+                        <PlaylistGraph>{ userContributionData }</PlaylistGraph>
                     </div>
                     : null }
                 </div>
