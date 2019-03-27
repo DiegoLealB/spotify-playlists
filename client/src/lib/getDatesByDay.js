@@ -33,7 +33,14 @@ function getDatesByDay(tracksArr) {
                 'rgba(54, 162, 235, 1)',
             ],
             borderWidth: 1,
-        }]
+        }],
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: 'Tracks added per day of the week',
+            },
+        }
     }
 
     return datesObj;

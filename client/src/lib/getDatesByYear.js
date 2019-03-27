@@ -35,6 +35,13 @@ function getDatesByYear(tracksArr) {
             ],
             borderWidth: 1,
         }],
+        options: {
+            title: {
+                display: true,
+                fontSize: 20,
+                text: 'Tracks added per year',
+            },
+        }
     }
 
     return datesObj;

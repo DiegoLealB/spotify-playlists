@@ -50,6 +50,13 @@ async function getUserContribution(tracksArr) {
                 borderColor: borderColorsArr,
                 borderWidth: 1
             }],
+            options: {
+                title: {
+                    display: true,
+                    fontSize: 20,
+                    text: 'Tracks added by user',
+                },
+            }
         }
         return usersObj;
     }
