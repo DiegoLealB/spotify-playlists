@@ -24,14 +24,39 @@ class PlaylistGraphs extends React.Component {
         }
     }
 
-    handleChange = event => {
-        this.setState({ graph: event.target.value });
-    };
+    randomRGBValue() {
+        return Math.floor(Math.random() * 256);
+    }
+
+    setColors(playlistData) {
+        let backgroundColorsArr = [];
+        let borderColorsArr = [];
+
+        for (let i = 0; i < playlistData.datasets[0].data.length; i++) {
+            let backgroundColor = `rgba(${this.randomRGBValue()}, ${this.randomRGBValue()}, ${this.randomRGBValue()}, 0.2)`;
+            backgroundColorsArr.push(backgroundColor);
+
+            let borderColor = backgroundColor.replace('0.2', '1');
+            borderColorsArr.push(borderColor);
+        }
+        
+        // Setting a new object with random colors for a background and border
+        let newObj = playlistData;
+        newObj.datasets[0].backgroundColor = newObj.datasets[0].backgroundColor = backgroundColorsArr;
+        newObj.datasets[0].borderColor = newObj.datasets[0].borderColor = borderColorsArr;
+        newObj.datasets[0].borderWidth = newObj.datasets[0].borderWidth = 1;
+        
+        return newObj;
+    }
 
     getRandomGraph() {
         const graphTypes = ['Bar', 'Line', 'Pie', 'Doughnut'];
         const randomNum = Math.floor(Math.random() * graphTypes.length);
         return graphTypes[randomNum];
+    }
+
+    handleChange = event => {
+        this.setState({ graph: event.target.value });
     }
 
     componentWillMount() {
@@ -43,7 +68,8 @@ class PlaylistGraphs extends React.Component {
     render() {
         const { classes } = this.props;
 
-        const playlistData = this.props.children;
+        let playlistData = this.props.children;
+        playlistData = this.setColors(this.props.children);
         let options;
         if (playlistData.options) {
             options = playlistData.options;

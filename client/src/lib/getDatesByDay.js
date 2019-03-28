@@ -26,13 +26,6 @@ function getDatesByDay(tracksArr) {
         datasets: [{
             label: '# of tracks',
             data: tracksByDay,
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)',
-            ],
-            borderWidth: 1,
         }],
         options: {
             title: {
