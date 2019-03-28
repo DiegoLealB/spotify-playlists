@@ -21,8 +21,6 @@ async function getUserContribution(tracksArr) {
     const count = Object.values(userCount);
 
     let userNames = [];
-    let backgroundColorsArr = [];
-    let borderColorsArr = [];
 
     async function getUserInfo(user) {
         return await spotifyWebApi.getUser(user)
@@ -32,12 +30,6 @@ async function getUserContribution(tracksArr) {
     for (let i = 0; i < users.length; i++) {
         let userName = await getUserInfo(users[i]);
         userNames.push(userName.display_name);
-
-        let backgroundColor = `rgba(${randomRGBValue()}, ${randomRGBValue()}, ${randomRGBValue()}, 0.2)`;
-        backgroundColorsArr.push(backgroundColor);
-
-        let borderColor = backgroundColor.replace('0.2', '1');
-        borderColorsArr.push(borderColor);
     }
     
     async function setUsersObj() {
@@ -46,9 +38,6 @@ async function getUserContribution(tracksArr) {
             datasets: [{
                 label: '# of songs',
                 data: count,
-                backgroundColor: backgroundColorsArr,
-                borderColor: borderColorsArr,
-                borderWidth: 1
             }],
             options: {
                 title: {
