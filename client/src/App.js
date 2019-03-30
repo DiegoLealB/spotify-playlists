@@ -39,7 +39,7 @@ class App extends React.Component {
     spotifyWebApi.setAccessToken(params.access_token);
     spotifyWebApi.getMe()
       .then(res => {
-        console.log(res);
+        // console.log(res);
       }).catch(err => {
         console.error(err.response);
         this.setState({

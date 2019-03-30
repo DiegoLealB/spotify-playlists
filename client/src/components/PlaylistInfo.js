@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
 import getDatesByDay from '../lib/getDatesByDay';
+import getAudioAnalysis from '../lib/getAudioAnalysis';
 import PlaylistGraph from './PlaylistGraph';
 
 const styles = {
@@ -78,6 +79,7 @@ class PlaylistInfo extends React.Component{
         let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
+        const audioData = getAudioAnalysis(tracks);
 
         return (
             <Paper>
