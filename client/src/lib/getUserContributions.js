@@ -6,11 +6,6 @@ const spotifyWebApi = new Spotify();
 // Takes in an array of tracks and returns data for a graph in chart.js format
 async function getUserContribution(tracksArr) {
 
-    // Returns a random integer from 0 to 255
-    function randomRGBValue() {
-        return Math.floor(Math.random() * 256);
-    }
-
     const userIds = tracksArr.map(track => {
         return track.added_by.id;
     })

@@ -1,5 +1,6 @@
 import React from 'react';
 import Spotify from 'spotify-web-api-js';
+import { Redirect, Switch } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
