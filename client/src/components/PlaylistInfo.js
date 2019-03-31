@@ -55,18 +55,25 @@ class PlaylistInfo extends React.Component{
         this.state = {
             playlist: props.playlist,
             userContributionData: undefined,
+            audioAnalysis: {},
         }
     }
     
     async componentWillMount() {
         try {
             const tracks = this.state.playlist.tracks.items;
+            
             if (this.state.playlist.collaborative && !this.state.userContributionData) {
                 let res = await getUserContributions(tracks);
                 this.setState({
                     userContributionData: res,
                 })
             }
+
+            let audioData = await getAudioAnalysis(tracks);
+            this.setState({
+                audioAnalysis: audioData,
+            })
         } catch(err) {
             console.error('getUserContributions error: ', err);
         }
@@ -74,12 +81,12 @@ class PlaylistInfo extends React.Component{
     
     render() {
         const { classes } = this.props;
-        const { playlist, userContributionData } = this.state;
+        const { playlist, userContributionData, audioAnalysis } = this.state;
 
         let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
-        const audioData = getAudioAnalysis(tracks);
+        console.log(audioAnalysis)
 
         return (
             <Paper>
