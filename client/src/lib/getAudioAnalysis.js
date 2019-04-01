@@ -4,9 +4,7 @@ const spotifyWebApi = new Spotify();
 
 async function getAudioAnalysis(tracksArr) {
     let trackIds = tracksArr.map(track => {return track.track.id});
-    try {
-        const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        
+    try {        
         let audioFeatures = await spotifyWebApi.getAudioFeaturesForTracks(trackIds);
         audioFeatures = audioFeatures.audio_features;
 
@@ -22,14 +20,56 @@ async function getAudioAnalysis(tracksArr) {
         const timeSignature = audioFeatures.map(track => {return track.time_signature});
         const valence = audioFeatures.map(track => {return track.valence});
 
+        const acousticnessStats = statistics(acousticness);
+        const danceabilityStats = statistics(danceability);
+        const durationStats = statistics(duration);
+        const energyStats = statistics(energy);
+        const instrumentalnessStats = statistics(instrumentalness);
+        const livenessStats = statistics(liveness);
+        const loudnessStats = statistics(loudness);
+        const speechinessStats = statistics(speechiness);
+        const tempoStats = statistics(tempo);
+        const timeSignatureStats = statistics(timeSignature);
+        const valenceStats = statistics(valence);
+        
         let audioAnalysisObj = {
-            acousticness, danceability, duration, energy, instrumentalness, liveness, loudness, speechiness, tempo, timeSignature, valence,
+            acousticness, acousticnessStats,
+            danceability, danceabilityStats,
+            duration, durationStats,
+            energy, energyStats,
+            instrumentalness, instrumentalnessStats,
+            liveness, livenessStats,
+            loudness, loudnessStats,
+            speechiness, speechinessStats,
+            tempo, tempoStats,
+            timeSignature, timeSignatureStats,
+            valence, valenceStats,
         };
         
         return audioAnalysisObj;
     } catch(err) {
         console.error(err);
     }
+}
+
+function statistics(array) {
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const average = array.reduce(reducer);
+    const squareDiffs = array.map(value => {
+        const diff = value - average;
+        const sqr = diff * diff;
+        return sqr;
+    });
+    const averageSqrDiff = squareDiffs.reduce(reducer);
+    const stdDev = Math.sqrt(averageSqrDiff);
+    let statisticsObj = {
+        average,
+        standardDeviation: stdDev,
+        max: array.indexOf(Math.max(...array)),
+        min: array.indexOf(Math.min(...array)),
+    }
+
+    return statisticsObj;
 }
 
 export default getAudioAnalysis;

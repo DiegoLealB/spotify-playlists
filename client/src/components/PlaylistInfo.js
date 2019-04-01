@@ -86,7 +86,7 @@ class PlaylistInfo extends React.Component{
         let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
-        console.log(audioAnalysis)
+        console.log(audioAnalysis);
 
         return (
             <Paper>
