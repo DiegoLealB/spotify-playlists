@@ -8,6 +8,7 @@ import getUserContributions from '../lib/getUserContributions';
 import getDatesByDay from '../lib/getDatesByDay';
 import getAudioAnalysis from '../lib/getAudioAnalysis';
 import PlaylistGraph from './PlaylistGraph';
+import PlaylistAwards from './PlaylistAwards';
 
 const styles = {
     title: {
@@ -86,7 +87,10 @@ class PlaylistInfo extends React.Component{
         let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
-        console.log(audioAnalysis);
+        const playlistAwardsData = {
+            tracks,
+            audioAnalysis
+        }
 
         return (
             <Paper>
@@ -118,6 +122,11 @@ class PlaylistInfo extends React.Component{
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ userContributionData }</PlaylistGraph>
                     </div>
+                    : null }
+                </div>
+                <div>
+                    { playlistAwardsData.audioAnalysis.acousticness ? 
+                        <PlaylistAwards>{ playlistAwardsData }</PlaylistAwards>
                     : null }
                 </div>
             </Paper>
