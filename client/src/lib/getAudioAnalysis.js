@@ -4,9 +4,25 @@ const spotifyWebApi = new Spotify();
 
 async function getAudioAnalysis(tracksArr) {
     let trackIds = tracksArr.map(track => {return track.track.id});
-    try {        
-        let audioFeatures = await spotifyWebApi.getAudioFeaturesForTracks(trackIds);
-        audioFeatures = audioFeatures.audio_features;
+    try {
+        let audioFeatures;
+        let longTrackArr = [];
+
+        if (trackIds.length >= 100) {
+            for (let i = 0; i < trackIds.length; i += 100) {
+                let ids = trackIds.slice(i, i + 100);
+                audioFeatures = await spotifyWebApi.getAudioFeaturesForTracks(ids);
+                audioFeatures = audioFeatures.audio_features;
+                longTrackArr.push(...audioFeatures);
+            }
+            audioFeatures = longTrackArr;
+        } else {
+            longTrackArr = trackIds;
+            audioFeatures = await spotifyWebApi.getAudioFeaturesForTracks(longTrackArr);
+            audioFeatures = audioFeatures.audio_features;
+        }
+        
+        console.log(audioFeatures)
 
         const acousticness = audioFeatures.map(track => {return track.acousticness});
         const danceability = audioFeatures.map(track => {return track.danceability});
