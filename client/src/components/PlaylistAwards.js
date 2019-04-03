@@ -1,21 +1,17 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 class PlaylistAwards extends React.Component {
     state = {
-        anchorEl: null,
         selected: '',
     };
 
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
-    };
-
-    handleClose = () => {
-        this.setState({ anchorEl: null });
     };
 
     handleChange = event => {
@@ -29,24 +25,19 @@ class PlaylistAwards extends React.Component {
     }
 
     render() {
-        const { anchorEl, selected } = this.state;
+        const { selected } = this.state;
         const { tracks, audioAnalysis } = this.props.children;
 
         const trackNames = tracks.map(track => { return track.track.name });
         const trackArtists = tracks.map(track => { return track.track.artists[0].name});
 
-        console.log(audioAnalysis)
         return (
             <div>
                 <Typography component='h2' variant='h2'>Playlist awards</Typography>
                 <Typography variant='body1'>Here you can see which tracks excel or underpreform on certain categories</Typography>
-                <Button
-                    aria-owns={anchorEl ? 'playlist-awards-menu' : undefined}
-                    aria-haspopup='true'
-                    onClick={this.handleClick}
-                >
+                <InputLabel htmlFor='playlist-awards-menu'>
                     <Typography>Select a category</Typography>
-                </Button>
+                </InputLabel>
                 <Select
                     id='playlist-awards-menu'
                     value={this.state.selected}
