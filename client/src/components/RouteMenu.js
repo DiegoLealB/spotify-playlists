@@ -1,5 +1,5 @@
 import React from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -37,9 +37,12 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-          <MenuItem onClick={this.handleClose}>My account</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          <Link to='/'>
+            <MenuItem onClick={this.handleClose}>Home</MenuItem>
+          </Link>
+          <Link to='/search'>
+            <MenuItem onClick={this.handleClose}>Search</MenuItem>
+          </Link>
         </Menu>
       </div>
     );

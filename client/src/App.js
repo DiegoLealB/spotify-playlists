@@ -8,6 +8,7 @@ import pink from '@material-ui/core/colors/pink';
 import HomePage from './containers/HomePage.container';
 import NavBar from './components/NavBar';
 import LoginButton from './components/LoginButton';
+import Search from './components/Search';
 
 const spotifyWebApi = new Spotify();
 
@@ -64,6 +65,7 @@ class App extends React.Component {
           <div>
             <NavBar />
             <Route exact path='/' component={HomePage} />
+            <Route path='/search' component={Search} />
           </div>
         : <LoginButton /> }
         </MuiThemeProvider>
