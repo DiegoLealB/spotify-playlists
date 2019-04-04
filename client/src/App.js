@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Spotify from 'spotify-web-api-js';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -36,19 +35,17 @@ class App extends React.Component {
         refreshToken: params.refresh_token,
     }
 
-    spotifyWebApi.setAccessToken(params.access_token);
+    spotifyWebApi.setAccessToken(this.state.access_token);
     spotifyWebApi.getMe()
-      .then(res => {
-        // console.log(res);
-      }).catch(err => {
+      .catch(err => {
         console.error(err.response);
         this.setState({
           loggedIn: false,
         })
-      })
+      });
   }
 
-  getHashParams(params) {
+  getHashParams = (params) => {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
     q = params
@@ -57,21 +54,7 @@ class App extends React.Component {
         hashParams[e[1]] = decodeURIComponent(e[2]);
       }
       return hashParams;
-  }
-
-  async componentDidMount() {
-    try {
-      // Refreshes access token every 30 minutes
-      const refreshToken = this.state.refreshToken;
-      setInterval(async () => {
-        const res = await axios.get(`http://localhost:8888/refresh_token?refresh_token=${refreshToken}`);
-        const accessToken = res.data.access_token;
-        spotifyWebApi.setAccessToken(accessToken);
-      }, 300000)
-    } catch(err) {
-      console.error('Refresh token error: ', err);
-    }
-  }
+  };
 
   render() {
     const { loggedIn } = this.state;
@@ -80,10 +63,10 @@ class App extends React.Component {
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
         { loggedIn ?
-        <div>
-          <NavBar />
-          <Route exact path='/' component={HomePage} />
-        </div>
+          <div>
+            <NavBar />
+            <Route exact path='/' component={HomePage} />
+          </div>
         : <LoginButton /> }
         </MuiThemeProvider>
       </BrowserRouter>
