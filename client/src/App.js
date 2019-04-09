@@ -29,15 +29,18 @@ class App extends React.Component {
     super();
     let queryString = window.location.hash.substring(1);
     const params = this.getHashParams(queryString);
-    
+
     this.state = {
+        token: params.access_token,
         loggedIn: params.access_token ? true : false,
     }
 
-    spotifyWebApi.setAccessToken(params.access_token);
+    localStorage.setItem('access_token', params.access_token);
+    // localStorage.setItem('refresh_token', params.refresh_token);
+
+    spotifyWebApi.setAccessToken(this.state.token);
     spotifyWebApi.getMe()
-      .catch(err => {
-        console.error(err.response);
+      .catch(() => {
         this.setState({
           loggedIn: false,
         })
@@ -54,6 +57,13 @@ class App extends React.Component {
       }
       return hashParams;
   };
+
+  componentDidMount() {
+      let value = localStorage.getItem('access_token');
+      if (value) {
+        this.setState({ token: value });
+      }
+  }
 
   render() {
     const { loggedIn } = this.state;
