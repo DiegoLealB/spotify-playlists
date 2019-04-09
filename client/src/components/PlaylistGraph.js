@@ -29,22 +29,45 @@ class PlaylistGraphs extends React.Component {
     }
 
     setColors(playlistData) {
-        let backgroundColorsArr = [];
-        let borderColorsArr = [];
+        console.log(playlistData)
+        let backgroundColorsArr = [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+        ];
+        let borderColorsArr = [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+        ];
 
-        for (let i = 0; i < playlistData.datasets[0].data.length; i++) {
-            let backgroundColor = `rgba(${this.randomRGBValue()}, ${this.randomRGBValue()}, ${this.randomRGBValue()}, 0.2)`;
-            backgroundColorsArr.push(backgroundColor);
-
-            let borderColor = backgroundColor.replace('0.2', '1');
-            borderColorsArr.push(borderColor);
+        for (let i = backgroundColorsArr.length; i < playlistData.datasets[0].data.length; i++) {
+            if (playlistData.datasets[0].data.length > backgroundColorsArr.length) {
+                let backgroundColor = `rgba(${this.randomRGBValue()}, ${this.randomRGBValue()}, ${this.randomRGBValue()}, 0.6)`;
+                backgroundColorsArr.push(backgroundColor);
+    
+                let borderColor = backgroundColor.replace('0.6', '1');
+                borderColorsArr.push(borderColor);
+            }
         }
         
-        // Setting a new object with random colors for a background and border
-        let newObj = playlistData;
-        newObj.datasets[0].backgroundColor = newObj.datasets[0].backgroundColor = backgroundColorsArr;
-        newObj.datasets[0].borderColor = newObj.datasets[0].borderColor = borderColorsArr;
-        newObj.datasets[0].borderWidth = newObj.datasets[0].borderWidth = 1;
+        let newObj = {
+            datasets: [{
+                    data: playlistData.datasets[0].data,
+                    label: playlistData.datasets[0].label,
+                    backgroundColor: backgroundColorsArr,
+                    borderColor: borderColorsArr,
+                    borderWidth: 1,
+            }],
+            labels: playlistData.labels,
+            options: playlistData.options,
+        }
         
         return newObj;
     }
@@ -69,7 +92,8 @@ class PlaylistGraphs extends React.Component {
         const { classes } = this.props;
 
         let playlistData = this.props.children;
-        playlistData = this.setColors(this.props.children);
+        playlistData = this.setColors(playlistData);
+
         let options;
         if (playlistData.options) {
             options = playlistData.options;

@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { InputLabel, Select, MenuItem } from '@material-ui/core';
 
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
@@ -57,7 +58,12 @@ class PlaylistInfo extends React.Component{
             playlist: props.playlist,
             userContributionData: undefined,
             audioAnalysis: {},
+            selectedData: '',
         }
+    }
+
+    handleChange = event => {
+        this.setState({ selectedData: event.target.value });
     }
     
     async componentWillMount() {
@@ -115,6 +121,19 @@ class PlaylistInfo extends React.Component{
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ dayData }</PlaylistGraph>
                     </div>
+                    {/* <InputLabel htmlFor='universal-graph'>Select info</InputLabel>
+                    <Select
+                        value={ this.state.selectedData }
+                        onChange={ this.handleChange }
+                        id='universal-graph'
+                        className={ classes.select }
+                    >
+                        <MenuItem value='year'>Contribution by year</MenuItem>
+                        <MenuItem value='day'>Contribution by day of the week</MenuItem>
+                    </Select>
+                    <div className={ classes.graphContainer }>
+                        <PlaylistGraph>{ this.state.selectedData }</PlaylistGraph>
+                    </div> */}
                     { userContributionData && playlist.collaborative === true ?
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ userContributionData }</PlaylistGraph>
