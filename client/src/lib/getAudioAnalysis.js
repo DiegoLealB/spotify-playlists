@@ -22,8 +22,6 @@ async function getAudioAnalysis(tracksArr) {
             audioFeatures = audioFeatures.audio_features;
         }
         
-        console.log(audioFeatures)
-
         const acousticness = audioFeatures.map(track => {return track.acousticness});
         const danceability = audioFeatures.map(track => {return track.danceability});
         const duration = audioFeatures.map(track => {return track.duration_ms / 1000});
