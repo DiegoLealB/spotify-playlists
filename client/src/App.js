@@ -28,16 +28,22 @@ class App extends React.Component {
   constructor() {
     super();
     let queryString = window.location.hash.substring(1);
-    const params = this.getHashParams(queryString);
+    let params = this.getHashParams(queryString);
+    let accessToken = localStorage.getItem('access_token')
+
+    if (accessToken) {
+      params.accessToken = accessToken;
+    } else {
+      localStorage.setItem('access_token', params.access_token);
+    }
 
     this.state = {
         token: params.access_token,
         loggedIn: params.access_token ? true : false,
     }
 
-    localStorage.setItem('access_token', params.access_token);
-    // localStorage.setItem('refresh_token', params.refresh_token);
 
+    console.log(accessToken)
     spotifyWebApi.setAccessToken(this.state.token);
     spotifyWebApi.getMe()
       .catch(() => {
@@ -75,7 +81,7 @@ class App extends React.Component {
           <div>
             <NavBar />
             <Route exact path='/' component={HomePage} />
-            <Route path='/search' component={Search} />
+            <Route exact path='/search' component={Search} />
           </div>
         : <LoginButton /> }
         </MuiThemeProvider>
