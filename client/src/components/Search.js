@@ -16,11 +16,11 @@ const spotifyWebApi = new Spotify();
 const styles = theme => ({
     textField: {
       width: 200,
+      color: 'black',
     },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        
     },
     listRoot: {
         width: '100%',
