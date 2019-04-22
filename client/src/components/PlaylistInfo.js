@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { InputLabel, Select, MenuItem } from '@material-ui/core';
+// import { InputLabel, Select, MenuItem } from '@material-ui/core';
 
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';

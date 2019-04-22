@@ -29,7 +29,6 @@ class PlaylistGraphs extends React.Component {
     }
 
     setColors(playlistData) {
-        console.log(playlistData)
         let backgroundColorsArr = [
             'rgba(255, 99, 132, 0.6)',
             'rgba(54, 162, 235, 0.6)',
