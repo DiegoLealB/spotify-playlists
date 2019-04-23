@@ -15,22 +15,30 @@ const spotifyWebApi = new Spotify();
 
 const styles = theme => ({
     textField: {
-      width: 200,
+      width: 300,
       color: 'black',
+      marginLeft: '40%',
     },
     container: {
-        display: 'flex',
-        flexWrap: 'wrap',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: 'black',
     },
     listRoot: {
         width: '100%',
+        marginLeft: '40%',
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
-        postition: 'relative',
         overflow: 'auto',
         maxHeight: 300,
         zIndex: 100,
-    }
+    },
+    searchIcon: {
+        marginTop: '13px',
+        marginLeft: '10px',
+    },
   });
 
 class Search extends React.Component{
@@ -99,7 +107,7 @@ class Search extends React.Component{
                         value={this.state.searchField}
                         onChange={this.handleChange("searchField")}
                     />
-                    <Button variant="contained" onClick={this.handleSubmit}>
+                    <Button variant="contained" onClick={this.handleSubmit} className={classes.searchIcon} >
                         <SearchIcon />
                     </Button>
                 </form>
