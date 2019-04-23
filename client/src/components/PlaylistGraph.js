@@ -72,7 +72,7 @@ class PlaylistGraphs extends React.Component {
     }
 
     getRandomGraph() {
-        const graphTypes = ['Bar', 'Line', 'Pie', 'Doughnut'];
+        const graphTypes = ['Bar', 'Pie', 'Doughnut'];
         const randomNum = Math.floor(Math.random() * graphTypes.length);
         return graphTypes[randomNum];
     }

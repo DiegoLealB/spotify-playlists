@@ -39,6 +39,7 @@ const styles = theme => ({
     },
     card: {
         display: 'flex',
+        paddingBottom: '20px',
     },
     details: {
         display: 'flex',

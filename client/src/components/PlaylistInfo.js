@@ -34,7 +34,7 @@ const styles = {
         margin: '20px',
     },
     description: {
-        maxWidth: '60%',
+        wordWrap: 'break-word',
     },
     a: {
         textDecoration: 'none',
@@ -44,10 +44,11 @@ const styles = {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'space-between',
     },
     graphContainer: {
         width: '500px',
-        height: '500px',
+        height: '350px',
     },
 }
 
@@ -121,19 +122,6 @@ class PlaylistInfo extends React.Component{
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ dayData }</PlaylistGraph>
                     </div>
-                    {/* <InputLabel htmlFor='universal-graph'>Select info</InputLabel>
-                    <Select
-                        value={ this.state.selectedData }
-                        onChange={ this.handleChange }
-                        id='universal-graph'
-                        className={ classes.select }
-                    >
-                        <MenuItem value='year'>Contribution by year</MenuItem>
-                        <MenuItem value='day'>Contribution by day of the week</MenuItem>
-                    </Select>
-                    <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ this.state.selectedData }</PlaylistGraph>
-                    </div> */}
                     { userContributionData && playlist.collaborative === true ?
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ userContributionData }</PlaylistGraph>
