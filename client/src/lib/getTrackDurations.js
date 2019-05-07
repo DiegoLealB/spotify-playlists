@@ -2,22 +2,29 @@
 function getTrackDuration(tracksArr) {
     let secondsArr = tracksArr.map(track => {
         let seconds = track.track.duration_ms / 1000;
-        // const formattedDurations = timeFormat(seconds);
+        // const formattedDurations = timeFormat(seconds); // Seconds formatted in Xm Ys format
         return seconds;
     });
+
+    const namesArr = tracksArr.map(track => {
+        return track.track.name;
+    })
     
     const durationObj = {
         datasets: [{
             label: 'tracks duration',
             data: secondsArr,
         }],
-        labels: [],
+        labels: namesArr,
         options: {
             title: {
                 display: true,
                 fontSize: 20,
                 text: 'Track durations',
             },
+            legend: {
+                display: false,
+            }
         }
     };
 
