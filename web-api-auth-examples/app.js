@@ -41,6 +41,10 @@ app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
+app.get('/test', function(req, res) {
+  res.send('Authentication API');
+});
+
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -64,7 +68,7 @@ app.get('/callback', function(req, res) {
   // after checking the state parameter
 
   var code = req.query.code || null;
-  var state = req.query.state || null;
+  var state = req.query.state || null; //Check state
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
@@ -105,7 +109,7 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:3000/#' +
+        res.redirect('https://spotify-playlist-info.herokuapp.com/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -145,4 +149,4 @@ app.get('/refresh_token', function(req, res) {
 });
 
 console.log('Listening on 8888');
-app.listen(8888);
+app.listen(process.env.PORT || 8888);
