@@ -8,6 +8,8 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import InfoIcon from '@material-ui/icons/Info'
+import PlaylistGraph from './PlaylistGraph';
+import getTrackDuration from '../lib/getTrackDurations';
 
 const styles = {
     card: {
@@ -54,6 +56,17 @@ class PlaylistAwards extends React.Component {
         return minutes + 'm ' + secs + 's';
     }
 
+    getDurationProps(tracks) {
+        let graphData = getTrackDuration(tracks);
+        let graphProps = {
+            graphs: ['Bar', 'Radar', 'Line']
+        };
+        let durationGraphProps = {
+            graphData, graphProps
+        };
+        return durationGraphProps;
+    }
+
     render() {
         const { selected } = this.state;
         const { tracks, audioAnalysis } = this.props.children;
@@ -66,7 +79,7 @@ class PlaylistAwards extends React.Component {
             <div className={classes.container}>
                 <Card className={classes.card}>
                     <CardContent>
-                        <Typography component='h2' variant='h2' className={classes.title}>Playlist awards🏆</Typography>
+                        <Typography component='h2' variant='h2' className={classes.title}>Playlist awards<span role='img' aria-label='trophy'>🏆</span></Typography>
                         <Typography variant='body1' className={classes.subtitle}>
                             Here you can see which tracks excel or underpreform on certain categories  
                             <Tooltip title="Data was provided using spotify's API audio analysis feature">
@@ -105,12 +118,17 @@ class PlaylistAwards extends React.Component {
                             </div>
                         : selected === 'duration' ?
                             <div>
-                                <Typography variant='h6' component='h6'>
-                                    The longest song is {trackNames[audioAnalysis.durationStats.max]} by {trackArtists[audioAnalysis.durationStats.max]} at {this.timeFormat(audioAnalysis.duration[audioAnalysis.durationStats.max])}
-                                </Typography>
-                                <Typography variant='h6' component='h6'>
-                                    The shortest song is {trackNames[audioAnalysis.durationStats.min]} by {trackArtists[audioAnalysis.durationStats.min]} at {this.timeFormat(audioAnalysis.duration[audioAnalysis.durationStats.min])}
-                                </Typography>
+                                <div>
+                                    <Typography variant='h6' component='h6'>
+                                        The longest song is {trackNames[audioAnalysis.durationStats.max]} by {trackArtists[audioAnalysis.durationStats.max]} at {this.timeFormat(audioAnalysis.duration[audioAnalysis.durationStats.max])}
+                                    </Typography>
+                                    <Typography variant='h6' component='h6'>
+                                        The shortest song is {trackNames[audioAnalysis.durationStats.min]} by {trackArtists[audioAnalysis.durationStats.min]} at {this.timeFormat(audioAnalysis.duration[audioAnalysis.durationStats.min])}
+                                    </Typography>
+                                </div>
+                                <div>
+                                    <PlaylistGraph>{this.getDurationProps(tracks)}</PlaylistGraph>                            
+                                </div>
                             </div>
                         : selected === 'energy' ?
                             <div>
