@@ -42,8 +42,6 @@ class App extends React.Component {
         loggedIn: params.access_token ? true : false,
     }
 
-
-    console.log(accessToken)
     spotifyWebApi.setAccessToken(this.state.token);
     spotifyWebApi.getMe()
       .catch(() => {
