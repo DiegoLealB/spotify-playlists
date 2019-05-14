@@ -82,6 +82,30 @@ class PlaylistGraphs extends React.Component {
         this.setState({ graph: event.target.value });
     }
 
+    MenuItems(props) {
+        const allowedGraphTypes = props.allowedGraphTypes;
+        const graphProps = props.graphProps; 
+        
+        console.log('MenuItems', allowedGraphTypes, graphProps)
+        if (graphProps) {
+
+        }
+
+        if (allowedGraphTypes === ['']) {
+            return (
+                <div>
+                    <MenuItem value='Bar'>Bar</MenuItem>
+                    <MenuItem value='Bubble'>Bubble</MenuItem>
+                    <MenuItem value='Doughnut'>Doughnut</MenuItem>
+                    <MenuItem value='Line'>Line</MenuItem>
+                    <MenuItem value='Pie'>Pie</MenuItem>
+                    <MenuItem value='Radar'>Radar</MenuItem>
+                    <MenuItem value='Polar'>Polar</MenuItem>
+                </div>
+            )
+        }
+    }
+
     componentWillMount() {
         this.setState({
             graph: this.getRandomGraph(),
@@ -90,16 +114,16 @@ class PlaylistGraphs extends React.Component {
     
     render() {
         const { graph, allowedGraphTypes } = this.state;
+        const { classes } = this.props;
+        let playlistData;
+
         if (this.props.children.graphProps) {
-            var { classes } = this.props;
             var { graphProps, graphData } = this.props.children;
-            var playlistData = graphData;
-            playlistData = this.setColors(playlistData);
+            playlistData = graphData;
         } else {
-            var { classes } = this.props;
-            var playlistData = this.props.children;
-            playlistData = this.setColors(playlistData);
+            playlistData = this.props.children;
         }
+        playlistData = this.setColors(playlistData);
 
         let options;
         if (playlistData.options) {
@@ -108,7 +132,6 @@ class PlaylistGraphs extends React.Component {
 
         return (
             <div>
-                
                     <InputLabel htmlFor="customized-select" className={classes.inputLabel}>Graph type</InputLabel>
                     <Select
                         value={ this.state.graph }
@@ -116,28 +139,24 @@ class PlaylistGraphs extends React.Component {
                         id="customized-select"
                         className={ classes.select }
                     >
-                    
-                    {allowedGraphTypes.graphs ? allowedGraphTypes.graphs.forEach(graphType => {
-                        console.log(graphType)
-                    }) : 
-                    <div>
-                        <MenuItem value='Bar'>Bar</MenuItem>
-                        <MenuItem value='Bubble'>Bubble</MenuItem>
-                        <MenuItem value='Doughnut'>Doughnut</MenuItem>
-                        <MenuItem value='Line'>Line</MenuItem>
-                        <MenuItem value='Pie'>Pie</MenuItem>
-                        <MenuItem value='Radar'>Radar</MenuItem>
-                        <MenuItem value='Polar'>Polar</MenuItem>
-                    </div>}
-                        
+                        {/* <MenuItems allowedGraphTypes={allowedGraphTypes} graphProps={graphProps}/> */}
+                        <div>
+                            <MenuItem value='Bar'>Bar</MenuItem>
+                            <MenuItem value='Bubble'>Bubble</MenuItem>
+                            <MenuItem value='Doughnut'>Doughnut</MenuItem>
+                            <MenuItem value='Line'>Line</MenuItem>
+                            <MenuItem value='Pie'>Pie</MenuItem>
+                            <MenuItem value='Radar'>Radar</MenuItem>
+                            <MenuItem value='Polar'>Polar</MenuItem>
+                        </div>
                     </Select>
-                    { graph === 'Bar' ? <Bar data={ playlistData } options={ options }/>
-                    : graph === 'Bubble' ? <Bubble data={ playlistData } options={ options }/>
-                    : graph === 'Doughnut' ? <Doughnut data={ playlistData } options={ options }/>
-                    : graph === 'Line' ? <Line data={ playlistData } options={ options }/>
-                    : graph === 'Pie' ? <Pie data={ playlistData } options={ options }/>
-                    : graph === 'Radar' ? <Radar data={ playlistData } options={ options }/>
-                    : <Polar data={ playlistData } options={ options }/> }
+                        { graph === 'Bar' ? <Bar data={ playlistData } options={ options }/>
+                        : graph === 'Bubble' ? <Bubble data={ playlistData } options={ options }/>
+                        : graph === 'Doughnut' ? <Doughnut data={ playlistData } options={ options }/>
+                        : graph === 'Line' ? <Line data={ playlistData } options={ options }/>
+                        : graph === 'Pie' ? <Pie data={ playlistData } options={ options }/>
+                        : graph === 'Radar' ? <Radar data={ playlistData } options={ options }/>
+                        : <Polar data={ playlistData } options={ options }/> }
             </div>
         )
     }

@@ -10,7 +10,6 @@ import getDatesByDay from '../lib/getDatesByDay';
 import getAudioAnalysis from '../lib/getAudioAnalysis';
 import PlaylistGraph from './PlaylistGraph';
 import PlaylistAwards from './PlaylistAwards';
-import getTrackDuration from '../lib/getTrackDurations';
 
 const styles = {
     title: {
