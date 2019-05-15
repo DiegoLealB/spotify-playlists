@@ -21,7 +21,7 @@ class PlaylistGraphs extends React.Component {
         super(props);
         this.state = {
             graph: '',
-            allowedGraphTypes: props.children.graphProps ? props.children.graphProps : [''],
+            allowedGraphTypes: props.children.graphProps ? props.children.graphProps : {},
         }
     }
 
@@ -82,29 +82,29 @@ class PlaylistGraphs extends React.Component {
         this.setState({ graph: event.target.value });
     }
 
-    MenuItems(props) {
-        const allowedGraphTypes = props.allowedGraphTypes;
-        const graphProps = props.graphProps; 
+    // MenuItems(props) {
+    //     const allowedGraphTypes = props.allowedGraphTypes;
+    //     const graphProps = props.graphProps; 
         
-        console.log('MenuItems', allowedGraphTypes, graphProps)
-        if (graphProps) {
+    //     console.log('MenuItems', allowedGraphTypes, graphProps)
+    //     if (graphProps) {
 
-        }
+    //     }
 
-        if (allowedGraphTypes === ['']) {
-            return (
-                <div>
-                    <MenuItem value='Bar'>Bar</MenuItem>
-                    <MenuItem value='Bubble'>Bubble</MenuItem>
-                    <MenuItem value='Doughnut'>Doughnut</MenuItem>
-                    <MenuItem value='Line'>Line</MenuItem>
-                    <MenuItem value='Pie'>Pie</MenuItem>
-                    <MenuItem value='Radar'>Radar</MenuItem>
-                    <MenuItem value='Polar'>Polar</MenuItem>
-                </div>
-            )
-        }
-    }
+    //     if (allowedGraphTypes == {}) {
+    //         return (
+    //             <div>
+    //                 <MenuItem value='Bar'>Bar</MenuItem>
+    //                 <MenuItem value='Bubble'>Bubble</MenuItem>
+    //                 <MenuItem value='Doughnut'>Doughnut</MenuItem>
+    //                 <MenuItem value='Line'>Line</MenuItem>
+    //                 <MenuItem value='Pie'>Pie</MenuItem>
+    //                 <MenuItem value='Radar'>Radar</MenuItem>
+    //                 <MenuItem value='Polar'>Polar</MenuItem>
+    //             </div>
+    //         )
+    //     }
+    // }
 
     componentWillMount() {
         this.setState({
@@ -133,23 +133,33 @@ class PlaylistGraphs extends React.Component {
         return (
             <div>
                     <InputLabel htmlFor="customized-select" className={classes.inputLabel}>Graph type</InputLabel>
+                    { allowedGraphTypes.graphs ? 
                     <Select
                         value={ this.state.graph }
                         onChange={ this.handleChange }
                         id="customized-select"
                         className={ classes.select }
                     >
-                        {/* <MenuItems allowedGraphTypes={allowedGraphTypes} graphProps={graphProps}/> */}
-                        <div>
-                            <MenuItem value='Bar'>Bar</MenuItem>
-                            <MenuItem value='Bubble'>Bubble</MenuItem>
-                            <MenuItem value='Doughnut'>Doughnut</MenuItem>
-                            <MenuItem value='Line'>Line</MenuItem>
-                            <MenuItem value='Pie'>Pie</MenuItem>
-                            <MenuItem value='Radar'>Radar</MenuItem>
-                            <MenuItem value='Polar'>Polar</MenuItem>
-                        </div>
+                        <MenuItem value='Bar'>Bar</MenuItem>
+                        <MenuItem value='Doughnut'>Doughnut</MenuItem>
+                        <MenuItem value='Line'>Line</MenuItem>
                     </Select>
+                    : 
+                    <Select
+                        value={ this.state.graph }
+                        onChange={ this.handleChange }
+                        id="customized-select"
+                        className={ classes.select }
+                    >
+                        <MenuItem value='Bar'>Bar</MenuItem>
+                        <MenuItem value='Bubble'>Bubble</MenuItem>
+                        <MenuItem value='Doughnut'>Doughnut</MenuItem>
+                        <MenuItem value='Line'>Line</MenuItem>
+                        <MenuItem value='Pie'>Pie</MenuItem>
+                        <MenuItem value='Radar'>Radar</MenuItem>
+                        <MenuItem value='Polar'>Polar</MenuItem>
+                    </Select>
+                    }
                         { graph === 'Bar' ? <Bar data={ playlistData } options={ options }/>
                         : graph === 'Bubble' ? <Bubble data={ playlistData } options={ options }/>
                         : graph === 'Doughnut' ? <Doughnut data={ playlistData } options={ options }/>

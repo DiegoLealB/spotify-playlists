@@ -67,6 +67,19 @@ class PlaylistAwards extends React.Component {
         return durationGraphProps;
     }
 
+    msToTime(duration) {
+        var milliseconds = parseInt((duration % 1000) / 100),
+          seconds = Math.floor((duration / 1000) % 60),
+          minutes = Math.floor((duration / (1000 * 60)) % 60),
+          hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+      
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+      
+        return hours + "h " + minutes + "m " + seconds + "s"
+    }
+
     render() {
         const { selected } = this.state;
         const { tracks, audioAnalysis } = this.props.children;
@@ -74,6 +87,7 @@ class PlaylistAwards extends React.Component {
 
         const trackNames = tracks.map(track => { return track.track.name });
         const trackArtists = tracks.map(track => { return track.track.artists[0].name});
+        const playlistDuration = tracks.map(track => { return track.track.duration_ms}).reduce((accumulator, currentValue) => { return accumulator + currentValue });
 
         return (
             <div className={classes.container}>
@@ -124,6 +138,9 @@ class PlaylistAwards extends React.Component {
                                     </Typography>
                                     <Typography variant='h6' component='h6'>
                                         The shortest song is {trackNames[audioAnalysis.durationStats.min]} by {trackArtists[audioAnalysis.durationStats.min]} at {this.timeFormat(audioAnalysis.duration[audioAnalysis.durationStats.min])}
+                                    </Typography>
+                                    <Typography varian='h6' component='h6'>
+                                        Total playlist duration is: {this.msToTime(playlistDuration)}
                                     </Typography>
                                 </div>
                                 <div>
