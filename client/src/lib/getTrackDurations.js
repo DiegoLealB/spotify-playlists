@@ -12,7 +12,7 @@ function getTrackDuration(tracksArr) {
     
     const durationObj = {
         datasets: [{
-            label: 'tracks duration',
+            label: 'tracks duration in seconds',
             data: secondsArr,
         }],
         labels: namesArr,
