@@ -68,7 +68,7 @@ async function getAudioAnalysis(tracksArr) {
 
 function statistics(array) {
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const average = array.reduce(reducer);
+    const average = array.reduce(reducer) / array.length;
     const squareDiffs = array.map(value => {
         const diff = value - average;
         const sqr = diff * diff;
