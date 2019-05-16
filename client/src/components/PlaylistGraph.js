@@ -143,6 +143,7 @@ class PlaylistGraphs extends React.Component {
                         <MenuItem value='Bar'>Bar</MenuItem>
                         <MenuItem value='Doughnut'>Doughnut</MenuItem>
                         <MenuItem value='Line'>Line</MenuItem>
+                        <MenuItem value='Pie'>Pie</MenuItem>
                     </Select>
                     : 
                     <Select
