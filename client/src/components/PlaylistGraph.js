@@ -82,30 +82,6 @@ class PlaylistGraphs extends React.Component {
         this.setState({ graph: event.target.value });
     }
 
-    // MenuItems(props) {
-    //     const allowedGraphTypes = props.allowedGraphTypes;
-    //     const graphProps = props.graphProps; 
-        
-    //     console.log('MenuItems', allowedGraphTypes, graphProps)
-    //     if (graphProps) {
-
-    //     }
-
-    //     if (allowedGraphTypes == {}) {
-    //         return (
-    //             <div>
-    //                 <MenuItem value='Bar'>Bar</MenuItem>
-    //                 <MenuItem value='Bubble'>Bubble</MenuItem>
-    //                 <MenuItem value='Doughnut'>Doughnut</MenuItem>
-    //                 <MenuItem value='Line'>Line</MenuItem>
-    //                 <MenuItem value='Pie'>Pie</MenuItem>
-    //                 <MenuItem value='Radar'>Radar</MenuItem>
-    //                 <MenuItem value='Polar'>Polar</MenuItem>
-    //             </div>
-    //         )
-    //     }
-    // }
-
     componentWillMount() {
         this.setState({
             graph: this.getRandomGraph(),
