@@ -8,6 +8,7 @@ import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
 import getDatesByDay from '../lib/getDatesByDay';
 import getAudioAnalysis from '../lib/getAudioAnalysis';
+import getArtists from '../lib/getArtists';
 import PlaylistGraph from './PlaylistGraph';
 import PlaylistAwards from './PlaylistAwards';
 
@@ -94,6 +95,9 @@ class PlaylistInfo extends React.Component{
         let tracks = playlist.tracks.items;
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
+        const artistData = getArtists(tracks);
+
+        console.log('asdfasdf', artistData);
         const playlistAwardsData = { tracks, audioAnalysis };
 
         return (
@@ -121,6 +125,9 @@ class PlaylistInfo extends React.Component{
                     </div>
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ dayData }</PlaylistGraph>
+                    </div>
+                    <div className={ classes.graphContainer }>
+                        <PlaylistGraph>{ artistData }</PlaylistGraph>
                     </div>
                     { userContributionData && playlist.collaborative === true ?
                     <div className={ classes.graphContainer }>

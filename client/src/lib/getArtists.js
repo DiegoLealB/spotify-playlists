@@ -1,17 +1,23 @@
 import _ from 'lodash';
 
 function getArtists(tracksArr) {
+    console.log(tracksArr)
     const artists = tracksArr.map(track => {
-        return new Date(track.track.artist);
+        return track.track.artists[0].name;
     });
 
-    console.log(artists);
+    const countByArtist = _.countBy(artists);
+    let artistFiltered = Object.keys(countByArtist);
+    let artistCount = Object.values(countByArtist);
+    artistFiltered.unshift('');
+    artistCount.unshift(0);
+
 
     let artistsObj = {
-        labels: daysArr,
+        labels: artistFiltered,
         datasets: [{
-            label: '# of tracks per artist',
-            data: tracksByDay,
+            label: '# of tracks by artist',
+            data: artistCount,
         }],
         options: {
             title: {
@@ -19,6 +25,9 @@ function getArtists(tracksArr) {
                 fontSize: 20,
                 text: 'Tracks by artist',
             },
+            legend: {
+                display: false,
+            }
         }
     }
 
