@@ -94,7 +94,7 @@ class PlaylistGraphs extends React.Component {
         let playlistData;
 
         if (this.props.children.graphProps) {
-            var { graphProps, graphData } = this.props.children;
+            var { graphData } = this.props.children;
             playlistData = graphData;
         } else {
             playlistData = this.props.children;

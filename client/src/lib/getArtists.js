@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 function getArtists(tracksArr) {
-    console.log(tracksArr)
     const artists = tracksArr.map(track => {
         return track.track.artists[0].name;
     });
@@ -9,9 +8,6 @@ function getArtists(tracksArr) {
     const countByArtist = _.countBy(artists);
     let artistFiltered = Object.keys(countByArtist);
     let artistCount = Object.values(countByArtist);
-    artistFiltered.unshift('');
-    artistCount.unshift(0);
-
 
     let artistsObj = {
         labels: artistFiltered,
@@ -27,6 +23,13 @@ function getArtists(tracksArr) {
             },
             legend: {
                 display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }]
             }
         }
     }

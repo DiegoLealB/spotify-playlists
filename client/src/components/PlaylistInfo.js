@@ -97,7 +97,6 @@ class PlaylistInfo extends React.Component{
         const dayData = getDatesByDay(tracks);
         const artistData = getArtists(tracks);
 
-        console.log('asdfasdf', artistData);
         const playlistAwardsData = { tracks, audioAnalysis };
 
         return (
@@ -121,10 +120,10 @@ class PlaylistInfo extends React.Component{
                 <br />
                 <div className={ classes.graphs }>
                     <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ yearData }</PlaylistGraph>
+                        <PlaylistGraph>{ dayData }</PlaylistGraph>
                     </div>
                     <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ dayData }</PlaylistGraph>
+                        <PlaylistGraph>{ yearData }</PlaylistGraph>
                     </div>
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ artistData }</PlaylistGraph>
