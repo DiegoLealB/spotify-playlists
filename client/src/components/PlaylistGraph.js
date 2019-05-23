@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, Bubble, Doughnut, Line, Radar, Pie, Polar } from 'react-chartjs-2';
+import { Bar, Doughnut, Line, Radar, Pie, Polar } from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core/styles';
 import { InputLabel, Select, MenuItem } from '@material-ui/core';
 
@@ -73,7 +73,7 @@ class PlaylistGraphs extends React.Component {
     }
 
     getRandomGraph() {
-        const graphTypes = ['Bar', 'Pie', 'Doughnut'];
+        const graphTypes = ['Bar', 'Line'];
         const randomNum = Math.floor(Math.random() * graphTypes.length);
         return graphTypes[randomNum];
     }
@@ -117,9 +117,7 @@ class PlaylistGraphs extends React.Component {
                         className={ classes.select }
                     >
                         <MenuItem value='Bar'>Bar</MenuItem>
-                        <MenuItem value='Doughnut'>Doughnut</MenuItem>
                         <MenuItem value='Line'>Line</MenuItem>
-                        <MenuItem value='Pie'>Pie</MenuItem>
                     </Select>
                     : 
                     <Select
@@ -129,7 +127,6 @@ class PlaylistGraphs extends React.Component {
                         className={ classes.select }
                     >
                         <MenuItem value='Bar'>Bar</MenuItem>
-                        <MenuItem value='Bubble'>Bubble</MenuItem>
                         <MenuItem value='Doughnut'>Doughnut</MenuItem>
                         <MenuItem value='Line'>Line</MenuItem>
                         <MenuItem value='Pie'>Pie</MenuItem>
@@ -138,7 +135,6 @@ class PlaylistGraphs extends React.Component {
                     </Select>
                     }
                         { graph === 'Bar' ? <Bar data={ playlistData } options={ options }/>
-                        : graph === 'Bubble' ? <Bubble data={ playlistData } options={ options }/>
                         : graph === 'Doughnut' ? <Doughnut data={ playlistData } options={ options }/>
                         : graph === 'Line' ? <Line data={ playlistData } options={ options }/>
                         : graph === 'Pie' ? <Pie data={ playlistData } options={ options }/>
