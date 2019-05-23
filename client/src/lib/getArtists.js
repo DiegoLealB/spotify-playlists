@@ -8,6 +8,8 @@ function getArtists(tracksArr) {
     const countByArtist = _.countBy(artists);
     let artistFiltered = Object.keys(countByArtist);
     let artistCount = Object.values(countByArtist);
+    artistFiltered.unshift('');
+    artistCount.unshift(0);
 
     let artistsObj = {
         labels: artistFiltered,
@@ -24,13 +26,14 @@ function getArtists(tracksArr) {
             legend: {
                 display: false,
             },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                    }
-                }]
-            }
+            // Commented out since all graphs have an x-axis with this
+            // scales: {
+            //     yAxes: [{
+            //         ticks: {
+            //             beginAtZero: true,
+            //         }
+            //     }]
+            // }
         }
     }
 
