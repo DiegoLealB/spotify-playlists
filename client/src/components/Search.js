@@ -7,9 +7,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import SearchIcon from '@material-ui/icons/Search';
+import Tooltip from '@material-ui/core/Tooltip';
+import InfoIcon from '@material-ui/icons/Info'
 import Close from '@material-ui/icons/Close';
 
 import PlaylistInfo from './PlaylistInfo';
+import { Typography } from '@material-ui/core';
 
 const spotifyWebApi = new Spotify();
 
@@ -38,6 +41,18 @@ const styles = theme => ({
     searchIcon: {
         marginTop: '13px',
         marginLeft: '10px',
+    },
+    title: {
+        textAlign: 'center',
+        margin: 10,
+        padding: 10,
+    },
+    infoIcon: {
+        marginBottom: '-5px',
+        marginLeft: '5px',
+    },
+    formContainer: {
+        marginBottom: '10px',
     },
   });
 
@@ -85,6 +100,12 @@ class Search extends React.Component{
         })
     }
 
+    pressEnter(event) {
+        event.preventDefault();
+        console.log('pressed enter');
+        return false;
+    }
+
     render() {
         const { classes } = this.props;
         const { showList, playlists, selectedPlaylist } = this.state;
@@ -97,8 +118,15 @@ class Search extends React.Component{
         }
 
         return (
-            <div>
-                <form className={classes.container}>
+            <div className={classes.container}>
+                <Typography component='h4' variant='h4' className={classes.title}>
+                    Search for any playlist in Spotify
+                    <Tooltip title="Only public playlists will show up in the search">
+                        <InfoIcon className={classes.infoIcon}/>
+                    </Tooltip>
+                </Typography>
+                
+                <form className={classes.formContainer} onSubmit={this.pressEnter}> 
                     <TextField 
                         id="seachField"
                         label="Search for playlists"
