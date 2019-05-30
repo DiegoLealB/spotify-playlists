@@ -26,14 +26,6 @@ function getArtists(tracksArr) {
             legend: {
                 display: false,
             },
-            // Commented out since all graphs have an x-axis with this
-            // scales: {
-            //     yAxes: [{
-            //         ticks: {
-            //             beginAtZero: true,
-            //         }
-            //     }]
-            // }
         }
     }
 
