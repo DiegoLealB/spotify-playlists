@@ -11,6 +11,7 @@ import getAudioAnalysis from '../lib/getAudioAnalysis';
 import getArtists from '../lib/getArtists';
 import PlaylistGraph from './PlaylistGraph';
 import PlaylistAwards from './PlaylistAwards';
+import getReleaseDate from '../lib/getReleaseDate';
 
 const styles = {
     title: {
@@ -96,6 +97,7 @@ class PlaylistInfo extends React.Component{
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
         const artistData = getArtists(tracks);
+        const releaseData = getReleaseDate(tracks);
 
         const playlistAwardsData = { tracks, audioAnalysis };
 
@@ -119,6 +121,9 @@ class PlaylistInfo extends React.Component{
                 </div>
                 <br />
                 <div className={ classes.graphs }>
+                    <div className={ classes.graphContainer }>
+                        <PlaylistGraph>{ releaseData }</PlaylistGraph>
+                    </div>
                     <div className={ classes.graphContainer }>
                         <PlaylistGraph>{ dayData }</PlaylistGraph>
                     </div>
