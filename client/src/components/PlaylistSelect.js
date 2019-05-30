@@ -81,7 +81,11 @@ class PlaylistSelect extends React.Component{
             this.setState({
                 playlists: playlists,
                 loading: false,
+                selectedPlaylist: {
+                    id: playlists.items[0].id, 
+                }
             });
+            console.log(playlists.items[0].id)
         } catch (error) {
             console.error('Get User Playlists error: ', error);
         }
@@ -125,7 +129,7 @@ class PlaylistSelect extends React.Component{
                                 onClose={this.handleClose}
                                 onOpen={this.handleOpen}
                                 onChange={this.handleChange}
-                                value={selectedPlaylist.id || ''}
+                                value={selectedPlaylist.id || playlists.items[0].id}
                                 className={classes.selectField}
                                 id='playlist-select'
                                 variant='outlined'
