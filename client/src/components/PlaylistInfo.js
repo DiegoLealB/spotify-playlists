@@ -97,7 +97,10 @@ class PlaylistInfo extends React.Component{
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
         const artistData = getArtists(tracks);
-        const releaseData = getReleaseDate(tracks);
+        let releaseData = {
+            graphData: getReleaseDate(tracks),
+            graphProps: { graphs: ['Bar', 'Line']}
+        }
 
         const playlistAwardsData = { tracks, audioAnalysis };
 
