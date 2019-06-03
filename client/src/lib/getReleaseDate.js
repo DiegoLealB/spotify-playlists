@@ -4,7 +4,7 @@ function getReleaseDate(tracksArr) {
     });
 
     let releaseDatesByYear = dates.map(date => {
-        return date.toString().split('-')[0];
+        return date.toString().split(' ')[3];
     });
 
     releaseDatesByYear = releaseDatesByYear.sort();
@@ -26,10 +26,7 @@ function getReleaseDate(tracksArr) {
         labels: namesArr,
         datasets: [{
             label: 'Tracks by release date',
-            data: [{
-                x: dates,
-                y: releaseDatesByYear,
-            }],
+            data: releaseDatesByYear,
         }],
         options: {
             title: {
@@ -42,17 +39,9 @@ function getReleaseDate(tracksArr) {
             },
             scales: {
                 xAxes: [{
-                    type: 'time',
-                    distribution: 'linear',
-                    time: {
-                        displayFormats: {
-                            week: 'll',
-                        }
-                    },
+                    display: false,
                 }],
                 yAxes: [{
-                    type: 'linear',
-                    position: 'left',
                     ticks: {
                         min: yearsArr[0],
                         max: yearsArr[yearsArr.length - 1],
