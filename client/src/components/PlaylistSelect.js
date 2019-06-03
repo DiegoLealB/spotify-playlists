@@ -85,7 +85,6 @@ class PlaylistSelect extends React.Component{
                     id: playlists.items[0].id, 
                 }
             });
-            console.log(playlists.items[0].id)
         } catch (error) {
             console.error('Get User Playlists error: ', error);
         }
