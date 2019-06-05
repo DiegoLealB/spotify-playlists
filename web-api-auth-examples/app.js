@@ -16,7 +16,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '41a86de586d34b15a1bacc5a3e0b4989'; // Your spotify api client id
 var client_secret = 'e320d0df79f94f0cbeb4c8e28e95d8d8'; // Your spotify api client secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'https://spotify-playlist-info-auth.herokuapp.com/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -105,7 +105,7 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:3000/#' +
+        res.redirect('https://spotify-playlist-info.herokuapp.com/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
