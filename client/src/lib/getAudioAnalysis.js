@@ -3,7 +3,9 @@ import Spotify from 'spotify-web-api-js';
 const spotifyWebApi = new Spotify();
 
 async function getAudioAnalysis(tracksArr) {
-    let trackIds = tracksArr.map(track => {return track.track.id});
+    let trackIds = tracksArr
+    .filter(track => {return track.track.track === true})
+    .map(track => {return track.track.id});
     try {
         let audioFeatures;
         let longTrackArr = [];

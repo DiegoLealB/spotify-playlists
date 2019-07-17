@@ -1,9 +1,11 @@
 import _ from 'lodash';
 
 function getArtists(tracksArr) {
-    const artists = tracksArr.map(track => {
+    const artists = tracksArr.filter(track => {
+        return track.track.track === true;
+    }).map(track => {
         return track.track.artists[0].name;
-    });
+    })
 
     const countByArtist = _.countBy(artists);
     let artistFiltered = Object.keys(countByArtist);

@@ -1,5 +1,7 @@
 function getReleaseDate(tracksArr) {
-    const dates = tracksArr.map(track => {
+    const dates = tracksArr.filter(track => {
+        return track.track.track === true;
+                        }).map(track => {
         return new Date(track.track.album.release_date);
     });
 

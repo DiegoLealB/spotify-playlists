@@ -94,6 +94,7 @@ class PlaylistInfo extends React.Component{
         const { playlist, userContributionData, audioAnalysis } = this.state;
 
         let tracks = playlist.tracks.items;
+        tracks = tracks.filter(track => {return track.track.track === true})
         const yearData = getDatesByYear(tracks);
         const dayData = getDatesByDay(tracks);
         const artistData = getArtists(tracks);
@@ -106,6 +107,7 @@ class PlaylistInfo extends React.Component{
 
         return (
             <Paper>
+                
                 <div className={ classes.header }>
                     { playlist.images[0] === undefined ? <h1> No image </h1> 
                     : <img src={ playlist.images[0].url } alt={ playlist.name } className={ classes.playlistImage }></img> }
