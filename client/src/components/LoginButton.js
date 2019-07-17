@@ -17,7 +17,7 @@ function LoginButton(props) {
 
     return (
         <div>
-            <a href='http://spotify-playlist-info-auth.herokuapp.com/login' className={classes.link}>
+            <a href='http://localhost:8888/login' className={classes.link}>
                 <Button variant='contained' color='primary' className={classes.button}>Login With Spotify</Button>
             </a>
         </div>
