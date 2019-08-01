@@ -1,18 +1,34 @@
 import React from 'react';
 import { Bar, Doughnut, Line, Radar, Pie, Polar } from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core/styles';
-import { InputLabel, Select, MenuItem } from '@material-ui/core';
+import { InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
 
 const styles = {
     inputLabel: {
-        width: '50%',
+        margin: 'auto',
+    },
+    select: {
         margin: 'auto',
         display: 'block',
     },
-    select: {
-        width: '50%',
-        margin: 'auto',
-        display: 'block',
+    mainContainer: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        justifyContent: 'space-between',
+        width: '90%',
+        height: '500px',
+        margin: '0 auto',
+    },
+    graphContainer: {
+        flex: '0, 1, 100px',
+        width: '70%',
+        height: '500px',
+        float: 'left',
+    },
+    graphControlsContainer: {
+        flex: '0, 0, 300px',
+        float: 'right',
+        height: '500px',
     },
 }
 
@@ -111,7 +127,18 @@ class PlaylistGraphs extends React.Component {
         }
 
         return (
-            <div>
+            <div className={ classes.mainContainer }>
+                <div className={ classes.graphContainer }>
+                    { graph === 'Bar' ? <Bar data={ playlistData } options={ options }/>
+                    : graph === 'Doughnut' ? <Doughnut data={ playlistData } options={ options }/>
+                    : graph === 'Line' ? <Line data={ playlistData } options={ options }/>
+                    : graph === 'Pie' ? <Pie data={ playlistData } options={ options }/>
+                    : graph === 'Radar' ? <Radar data={ playlistData } options={ options }/>
+                    : <Polar data={ playlistData } options={ options }/> }
+                </div>
+                <div className={ classes.graphControlsContainer }>
+                    <Typography variant="h6">Graph Controls</Typography>
+                    <br />
                     <InputLabel htmlFor="customized-select" className={classes.inputLabel}>Graph type</InputLabel>
                     { allowedGraphTypes.graphs ? 
                     <Select
@@ -125,10 +152,10 @@ class PlaylistGraphs extends React.Component {
                     </Select>
                     : 
                     <Select
-                        value={ this.state.graph }
-                        onChange={ this.handleChange }
-                        id="customized-select"
-                        className={ classes.select }
+                    value={ this.state.graph }
+                    onChange={ this.handleChange }
+                    id="customized-select"
+                    className={ classes.select }
                     >
                         <MenuItem value='Bar'>Bar</MenuItem>
                         <MenuItem value='Doughnut'>Doughnut</MenuItem>
@@ -138,12 +165,7 @@ class PlaylistGraphs extends React.Component {
                         <MenuItem value='Polar'>Polar</MenuItem>
                     </Select>
                     }
-                        { graph === 'Bar' ? <Bar data={ playlistData } options={ options }/>
-                        : graph === 'Doughnut' ? <Doughnut data={ playlistData } options={ options }/>
-                        : graph === 'Line' ? <Line data={ playlistData } options={ options }/>
-                        : graph === 'Pie' ? <Pie data={ playlistData } options={ options }/>
-                        : graph === 'Radar' ? <Radar data={ playlistData } options={ options }/>
-                        : <Polar data={ playlistData } options={ options }/> }
+                </div>
             </div>
         )
     }

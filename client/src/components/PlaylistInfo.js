@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-// import { InputLabel, Select, MenuItem } from '@material-ui/core';
+import { InputLabel, Select, MenuItem } from '@material-ui/core';
 
 import getDatesByYear from '../lib/getDatesByYear';
 import getUserContributions from '../lib/getUserContributions';
@@ -42,15 +42,24 @@ const styles = {
         textDecoration: 'none',
         color: 'white',
     },
-    graphs: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
     graphContainer: {
-        width: '500px',
-        height: '350px',
+        width: '80%',
+        margin: '0 auto',
+    },
+    inputLabel: {
+        width: '50%',
+        margin: 'auto',
+        display: 'block',
+    },
+    graphSelect: {
+        width: '30%',
+        margin: 'auto',
+        display: 'block',
+    },
+    select: {
+        width: '50%',
+        margin: 'auto',
+        display: 'block',
     },
 }
 
@@ -62,11 +71,16 @@ class PlaylistInfo extends React.Component{
             userContributionData: undefined,
             audioAnalysis: {},
             selectedData: '',
+            selectedGraph: 'day',
         }
     }
 
     handleChange = event => {
         this.setState({ selectedData: event.target.value });
+    }
+
+    chooseGraph = event => {
+        this.setState({ selectedGraph: event.target.value })
     }
     
     async componentWillMount() {
@@ -91,7 +105,7 @@ class PlaylistInfo extends React.Component{
     
     render() {
         const { classes } = this.props;
-        const { playlist, userContributionData, audioAnalysis } = this.state;
+        const { playlist, userContributionData, audioAnalysis, selectedGraph } = this.state;
 
         let tracks = playlist.tracks.items;
         tracks = tracks.filter(track => {return track.track.track === true})
@@ -125,25 +139,42 @@ class PlaylistInfo extends React.Component{
                     </div>
                 </div>
                 <br />
-                <div className={ classes.graphs }>
-                    <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ releaseData }</PlaylistGraph>
-                    </div>
-                    <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ dayData }</PlaylistGraph>
-                    </div>
-                    <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ yearData }</PlaylistGraph>
-                    </div>
-                    <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ artistData }</PlaylistGraph>
-                    </div>
-                    { userContributionData && playlist.collaborative === true ?
-                    <div className={ classes.graphContainer }>
-                        <PlaylistGraph>{ userContributionData }</PlaylistGraph>
-                    </div>
-                    : null }
+                <div className={ classes.graphContainer }>
+                    <InputLabel htmlFor="graph-select" className={ classes.inputLabel }>
+                        Select a graph
+                    </InputLabel>
+                    <Select
+                        value={ this.state.selectedGraph }
+                        onChange={ this.chooseGraph }
+                        id="graph-select"
+                        className={ classes.select }
+                    >
+                        <MenuItem value="release">
+                            Release dates
+                        </MenuItem>
+                        <MenuItem value="day">
+                            Songs added by day of the week
+                        </MenuItem>
+                        <MenuItem value="year">
+                            Songs added by year
+                        </MenuItem>
+                        <MenuItem value="artist">
+                            Artist count in playlist
+                        </MenuItem>
+                        { userContributionData && playlist.collaborative === true ?
+                            <MenuItem value="contributions">
+                                Playlist collaborators
+                            </MenuItem>
+                        : null}
+                    </Select>
+                    <br/>
+                    { selectedGraph === "release" ? <PlaylistGraph>{ releaseData }</PlaylistGraph> 
+                    : selectedGraph === "day" ? <PlaylistGraph>{ dayData }</PlaylistGraph>
+                    : selectedGraph === "year" ? <PlaylistGraph>{ yearData }</PlaylistGraph>
+                    : selectedGraph === "contributions" ? <PlaylistGraph>{ userContributionData }</PlaylistGraph>
+                    : <PlaylistGraph>{ artistData }</PlaylistGraph> }
                 </div>
+                <br/>
                 <div>
                     { playlistAwardsData.audioAnalysis.acousticness ? 
                         <PlaylistAwards>{ playlistAwardsData }</PlaylistAwards>
