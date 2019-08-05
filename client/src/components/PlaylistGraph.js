@@ -21,14 +21,12 @@ const styles = {
     },
     graphContainer: {
         flex: '0, 1, 100px',
-        width: '70%',
-        height: '500px',
+        width: '100%',
         float: 'left',
     },
     graphControlsContainer: {
         flex: '0, 0, 300px',
         float: 'right',
-        height: '500px',
     },
 }
 
@@ -84,7 +82,6 @@ class PlaylistGraphs extends React.Component {
             labels: playlistData.labels,
             options: playlistData.options,
         }
-        
         return newObj;
     }
 
@@ -125,6 +122,7 @@ class PlaylistGraphs extends React.Component {
         if (playlistData.options) {
             options = playlistData.options;
         }
+        console.log(options);
 
         return (
             <div className={ classes.mainContainer }>
